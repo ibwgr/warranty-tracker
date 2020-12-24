@@ -14,7 +14,7 @@ async function testData() {
         conn = await pool.getConnection();
         console.log('connected');
 
-        const sql = `INSERT INTO warranty (date, machine, customer, contact, issue, employee, time)
+        const sql = `INSERT INTO warranty (date_, machine, customer, contact, issue, employee, time_)
                      VALUES ('2020-04-12', 'Master250', 'CCL USA', 'M. Muster', 'Download Update', 'S. Huttera',
                              '20:00:00')`;
 
