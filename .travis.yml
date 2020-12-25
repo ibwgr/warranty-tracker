@@ -1,0 +1,17 @@
+dist: trusty
+language: node_js
+node_js:
+  - "10"
+addons:
+  apt:
+    packages:
+      - dpkg
+  chrome: stable
+before_script:
+
+  # build express application and serve it
+  - npm install & npm run start &
+  # give background tasks some time to start up
+  - sleep 8
+  # travis now automatically runs `npm run test`
+
