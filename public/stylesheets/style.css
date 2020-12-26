@@ -23,8 +23,13 @@ li a {
 }
 
 
-li a:hover {
+li a.active {
   background-color: #555;
+  color: white;
+}
+
+li a:hover {
+  background-color: #111;
   color: white;
 }
 

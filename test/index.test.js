@@ -36,12 +36,11 @@ describe('Index', () => {
         it('should open index page', async () => {
             await driver.wait(until.elementLocated(page.navigateToIndexPageSelector()));
             await page.navigateToIndexPage().sendKeys(Key.ENTER);
-            await driver.wait(until.elementLocated(page.navigateToIndexPageSelector()));
 
             const url = await page.getCurrentUrl()
             const current = url.split('/').pop()
 
-            await assert.equal(current, 'index.html');
+            await assert.equal(current, '');
         })
 
         it('link to index page should be active class', async () => {
