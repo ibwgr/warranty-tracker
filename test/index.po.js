@@ -11,6 +11,10 @@ export default class Index{
         return this.driver.navigate().to(this.url)
     }
 
+    getCurrentUrl(){
+        return this.driver.getCurrentUrl()
+    }
+
     getPageTitle(){
         return this.driver.getTitle()
     }
@@ -18,4 +22,13 @@ export default class Index{
     contentTitleSelector(){
         return By.css('.title')
     }
+
+    navigateToIndexPage(){
+        return this.driver.findElement(this.navigateToIndexPageSelector())
+    }
+
+    navigateToIndexPageSelector(){
+        return By.id('linkToIndexPage')
+    }
+
 }
