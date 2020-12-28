@@ -3,7 +3,7 @@ const database = require('../model/database.js');
 const getDataForTheLast12Month = async (req, res) => {
     try {
         const query = `SELECT * FROM warranty
-                       WHERE date_ >= CURDATE() - INTERVAL 12 MONTH`
+                       WHERE date_ >= CURDATE() - INTERVAL 12 MONTH`;
 
         await database.getDataByQuery(query, function(result) {
             res.send(result);
@@ -76,4 +76,4 @@ module.exports = {
     getDataAccordingToDateSelection,
     addWarrantyEntry,
     deleteWarrantyEntry
-}
+};

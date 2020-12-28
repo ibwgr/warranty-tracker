@@ -45,4 +45,4 @@ async function changeDataByQuery(query) {
 module.exports = {
     getDataByQuery,
     changeDataByQuery
-}
+};
