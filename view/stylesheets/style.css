@@ -41,7 +41,7 @@ li a:hover {
   grid-template-areas:
     "title"
     "graph"
-    "config"
+    "action-bar"
     "list";
   height: 100vh;
 }
@@ -54,8 +54,8 @@ li a:hover {
   grid-area: graph;
 }
 
-.actions {
-  grid-area: config;
+.action-bar {
+  grid-area: action-bar;
 }
 
 .list {
