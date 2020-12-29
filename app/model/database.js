@@ -7,11 +7,14 @@ const pool = mariadb.createPool({
     connectionLimit: 5
 });
 
-async function getDataByQuery(query, callback) {
+async function getDataByQuery(query, callback, queryValues) {
     let conn;
     try {
+        if (queryValues === undefined) {
+            queryValues = '';
+        }
         conn = await pool.getConnection();
-        const data = await conn.query(query);
+        const data = await conn.query(query, queryValues);
         return callback(data);
 
     } catch (err) {
@@ -24,13 +27,11 @@ async function getDataByQuery(query, callback) {
     }
 }
 
-async function changeDataByQuery(query) {
+async function changeDataByQuery(query, queryValues) {
     let conn;
     try {
         conn = await pool.getConnection();
-        await conn.query(query, function (err, result) {
-            if (err) throw err;
-        });
+        await conn.query(query, queryValues);
 
     } catch (err) {
         throw err;

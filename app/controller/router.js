@@ -9,9 +9,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/warranty/last-12-month', controller.getDataForTheLast12Month);
 router.get('/warranty/current-month', controller.getDataForTheCurrentMonth);
+router.get('/warranty/date-selection', controller.getDataAccordingToDateSelection);
 router.post('/warranty/add-entry', controller.addWarrantyEntry);
 router.post('/warranty/delete-entry', controller.deleteWarrantyEntry);
-router.post('/warranty/date-selection', controller.getDataAccordingToDateSelection);
+
 
 
 module.exports = router;

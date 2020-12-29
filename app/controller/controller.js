@@ -31,11 +31,13 @@ const getDataForTheCurrentMonth = async (req, res) => {
 const getDataAccordingToDateSelection = async (req, res) => {
     try {
         const query = `SELECT * FROM warranty
-                       WHERE date_ BETWEEN ${req.body.dateFrom} AND ${req.body.dateTo}`;
+                       WHERE date_ BETWEEN ? AND ?`;
+        //Todo: How do I get dateFrom and dateTo from Front-End? --> /warranty/date-selection/?
+        const queryValues = '';
 
         await database.getDataByQuery(query, function(result) {
             res.send(result);
-        });
+        }, queryValues);
     } catch (e) {
         console.log(e);
         throw new Error(e.message);
@@ -44,13 +46,14 @@ const getDataAccordingToDateSelection = async (req, res) => {
 
 const addWarrantyEntry = async (req, res) => {
     try {
-        const query = `INSERT INTO warranty (date_, machine, customer, contact, issue, employee, time_)
-                       VALUES
-                       ('${req.body.date_}', '${req.body.machine}', '${req.body.customer}', '${req.body.contact}',
-                        '${req.body.issue}', '${req.body.employee}', '${req.body.time_}')`;
+        const queryAddEntry = `INSERT INTO warranty (date_, machine, customer, contact, issue, employee, time_) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const queryValues = Object.values(req.body);
+        await database.changeDataByQuery(queryAddEntry, queryValues);
 
-        await database.changeDataByQuery(query);
-        res.end();
+        const queryGetLatestId = `SELECT MAX(id) FROM warranty`
+        await database.getDataByQuery(queryGetLatestId, function(result) {
+            res.send(result);
+        });
     } catch (e) {
         console.log(e);
         throw new Error(e.message);
@@ -59,10 +62,10 @@ const addWarrantyEntry = async (req, res) => {
 
 const deleteWarrantyEntry = async (req, res) => {
     try {
-        const query = `DELETE * FROM warranty
-                       WHERE id = ${req.body.id}`;
+        const query = `DELETE FROM warranty WHERE id = ?`;
+        const queryValue = req.body.id;
 
-        await database.changeDataByQuery(query);
+        await database.changeDataByQuery(query, queryValue);
         res.end();
     } catch (e) {
         console.log(e);

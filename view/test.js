@@ -19,6 +19,7 @@ btnGet.addEventListener('click', () => {
 });
 
 btnPost.addEventListener('click', () => {
+
     const data = {
         date_: '2020-04-12',
         machine: 'Master250',
@@ -35,5 +36,11 @@ btnPost.addEventListener('click', () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data)
+    }).then(response => {
+        if (response.ok) {
+            console.log(response.json());
+        } else {
+            console.log('response not ok');
+        }
     })
 });
