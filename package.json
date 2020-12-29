@@ -4,10 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node app/app.js",
-    "test": "./node_modules/.bin/mocha test/*.test.js --timeout 8000"
+    "test": "./node_modules/.bin/mocha test/*.test.js --timeout 8000",
+    "dev": "./node_modules/.bin/nodemon app/app.js"
   },
   "dependencies": {
-    "express": "~4.16.1"
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "mariadb": "^2.5.2",
+    "nodeJS": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.7.5",
@@ -18,6 +22,7 @@
     "chai-as-promised": "^7.1.1",
     "chromedriver": "^87.0.4",
     "mocha": "^8.2.1",
-    "selenium-webdriver": "^4.0.0-alpha.8"
+    "selenium-webdriver": "^4.0.0-alpha.8",
+    "nodemon": "^2.0.4"
   }
 }

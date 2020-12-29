@@ -1,19 +1,14 @@
 const express = require('express');
-const path = require('path');
-
-const indexRouter = require('./routes/index');
-const testRouter = require('./routes/test-route');
-
+const router = require('./controller/router.js');
+const bodyParser = require("body-parser");
 const app = express();
 
-app.use(express.static('public'));
-
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public', 'index.html')));
-
-app.use('/', indexRouter);
-app.use('/test-route', testRouter);
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use("/view", express.static('./view/'));
+app.use('/', router);
 
 const port = 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
