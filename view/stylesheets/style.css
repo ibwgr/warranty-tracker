@@ -42,7 +42,7 @@ li a:hover {
     "title"
     "graph"
     "action-bar"
-    "list";
+    "table";
   height: 100vh;
 }
 
@@ -58,8 +58,9 @@ li a:hover {
   grid-area: action-bar;
 }
 
-.list {
-  grid-area: list;
+.table {
+  grid-area: table;
+  overflow: auto;
 }
 
 .highcharts-data-table table {
@@ -74,4 +75,13 @@ li a:hover {
 
 .highcharts-credits, .highcharts-background, #trend-graph .highcharts-title{
   display: none;
+}
+
+.column-titles{
+  font: 16px "Lucida Grande", Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.table-entry{
+  font: 12px "Lucida Grande", Arial, Helvetica, sans-serif;
 }

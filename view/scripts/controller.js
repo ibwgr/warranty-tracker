@@ -1,19 +1,26 @@
 export default class Controller {
 
     constructor(view, data) {
-        this.view = view
-        this.data = data
+        this.view = view;
+        this.data = data;
+    }
+
+    async loadAndRender(){
+        try{
+            const warrantyEntries = await this.getWarrantyEntriesOfLastTwelveMonths()
+            this.view.renderList(warrantyEntries);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async getWarrantyEntriesOfLastTwelveMonths() {
-        const warrantyEntries = await this.data.getWarrantyEntriesOfLastTwelveMonths();
-            this.updateView(warrantyEntries);
+        return await this.data.getWarrantyEntriesOfLastTwelveMonths();
     }
 
-
-    updateView(warrantyEntries) {
+    updateTrend(warrantyEntries) {
         this.view.updateTrend(
-            (warrantyEntries.map(values => [Date.parse(values.date_), values.time_])))
+            (warrantyEntries.map(values => [Date.parse(values.date_), values.time_])));
     }
 
 }
