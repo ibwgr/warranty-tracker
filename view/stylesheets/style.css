@@ -61,3 +61,17 @@ li a:hover {
 .list {
   grid-area: list;
 }
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #EBEBEB;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.highcharts-credits, .highcharts-background, #trend-graph .highcharts-title{
+  display: none;
+}
