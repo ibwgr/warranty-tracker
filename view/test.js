@@ -21,7 +21,7 @@ btnGet.addEventListener('click', () => {
 btnPost.addEventListener('click', () => {
 
     const data = {
-        date_: '2020-04-12',
+        date_: '2020-12-12',
         machine: 'Master250',
         customer: 'CCL USA',
         contact: 'M. Muster',

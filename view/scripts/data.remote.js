@@ -19,4 +19,21 @@ export default class Data {
             }
         })
     }
+
+    async getWarrantyEntriesOfCurrentMonth(){
+        let url = new URL(this.serverUrl + "/warranty/current-month")
+
+        return fetch(url.toString(), {
+            headers: new Headers({
+                'Accept': 'application/json',
+            })
+        }).then(response => {
+            if (response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response)
+            }
+        })
+    }
+
 }

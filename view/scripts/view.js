@@ -18,6 +18,7 @@ export default class View {
 
     renderWarrantyEntry(warrantyEntry){
         const entry = document.createElement("tr");
+        const date = this.renderColumn(warrantyEntry.date_);
         const customer = this.renderColumn(warrantyEntry.customer);
         const contact = this.renderColumn(warrantyEntry.contact);
         const machine = this.renderColumn(warrantyEntry.machine);
@@ -25,7 +26,7 @@ export default class View {
         const employee = this.renderColumn(warrantyEntry.employee);
         const spendTime = this.renderColumn(warrantyEntry.time_);
 
-        entry.innerHTML = customer + contact + machine + issue + employee + spendTime;
+        entry.innerHTML = date + customer + contact + machine + issue + employee + spendTime;
         entry.className = "table-entry";
         return entry;
     }
@@ -33,13 +34,14 @@ export default class View {
     renderColummTitles(){
         const titles = document.createElement("tr");
         const customerTitle = this.renderColumn("Costumer");
+        const dateTitle = this.renderColumn("Date");
         const contactTitle = this.renderColumn("Customer Contact");
         const machineTitle = this.renderColumn("Machine Nr.");
         const issueTitle = this.renderColumn("Issue");
         const employeeTitle = this.renderColumn("Employee");
         const timeTitle = this.renderColumn("Spend Time");
 
-        titles.innerHTML = customerTitle + contactTitle + machineTitle + issueTitle + employeeTitle + timeTitle;
+        titles.innerHTML = dateTitle + customerTitle + contactTitle + machineTitle + issueTitle + employeeTitle + timeTitle;
         titles.className = "column-titles";
         return titles;
     }

@@ -7,16 +7,13 @@ export default class Controller {
 
     async loadAndRender(){
         try{
-            const warrantyEntries = await this.getWarrantyEntriesOfLastTwelveMonths()
+            const warrantyEntries = await this.data.getWarrantyEntriesOfCurrentMonth();
             this.view.renderList(warrantyEntries);
         } catch (e) {
             console.log(e);
         }
     }
 
-    async getWarrantyEntriesOfLastTwelveMonths() {
-        return await this.data.getWarrantyEntriesOfLastTwelveMonths();
-    }
 
     updateTrend(warrantyEntries) {
         this.view.updateTrend(
