@@ -18,7 +18,7 @@ export default class View {
 
     renderWarrantyEntry(warrantyEntry){
         const entry = document.createElement("tr");
-        const date = this.renderColumn(warrantyEntry.date_);
+        const date = this.renderColumn(new Date(warrantyEntry.date_).toLocaleString().split(",")[0]);
         const customer = this.renderColumn(warrantyEntry.customer);
         const contact = this.renderColumn(warrantyEntry.contact);
         const machine = this.renderColumn(warrantyEntry.machine);

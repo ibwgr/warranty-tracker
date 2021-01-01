@@ -19,9 +19,9 @@ btnGet.addEventListener('click', () => {
 });
 
 btnPost.addEventListener('click', () => {
-
+    console.log(new Date())
     const data = {
-        date_: '2020-12-12',
+        date_: new Date().toISOString().split("T")[0],
         machine: 'Master250',
         customer: 'CCL USA',
         contact: 'M. Muster',
