@@ -13,12 +13,12 @@ export default class View {
 
     renderList(warrantyEntries){
         warrantyEntries.map(entry => this.table.appendChild(this.renderWarrantyEntry(entry)));
-        this.table.prepend(this.renderColummTitles());
+        this.table.prepend(this.renderColumnTitles());
     }
 
     renderWarrantyEntry(warrantyEntry){
         const entry = document.createElement("tr");
-        const date = this.renderColumn(new Date(warrantyEntry.date_).toLocaleString().split(",")[0]);
+        const date = this.renderColumn(warrantyEntry.date_);
         const customer = this.renderColumn(warrantyEntry.customer);
         const contact = this.renderColumn(warrantyEntry.contact);
         const machine = this.renderColumn(warrantyEntry.machine);
@@ -31,7 +31,7 @@ export default class View {
         return entry;
     }
 
-    renderColummTitles(){
+    renderColumnTitles(){
         const titles = document.createElement("tr");
         const customerTitle = this.renderColumn("Costumer");
         const dateTitle = this.renderColumn("Date");
