@@ -15,7 +15,7 @@ async function getDataByQuery(query, callback, queryValues) {
         }
         conn = await pool.getConnection();
         const data = await conn.query(query, queryValues);
-        data.forEach(addOneHourToUTCTimezone)
+        data.forEach(addOneHourToUTCTimezone);
         return callback(data);
 
     } catch (err) {
@@ -50,5 +50,6 @@ function addOneHourToUTCTimezone(warrantyEntry){
 
 module.exports = {
     getDataByQuery,
-    changeDataByQuery
+    changeDataByQuery,
+    addOneHourToUTCTimezone
 };

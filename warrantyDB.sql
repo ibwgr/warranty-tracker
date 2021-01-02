@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS warrantyDB;
-USE warrantyDB;
+CREATE DATABASE IF NOT EXISTS warrantydb;
+USE warrantydb;
 
 CREATE TABLE IF NOT EXISTS warranty
     (
