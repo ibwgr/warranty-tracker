@@ -8,7 +8,7 @@ export default class Controller {
     async loadAndRender(){
         try{
             const warrantyEntries = await this.data.getWarrantyEntriesOfCurrentMonth();
-            this.formatDate(warrantyEntries)
+            this.formatAndSort(warrantyEntries)
             this.view.renderList(warrantyEntries);
         } catch (e) {
             console.log(e);
@@ -22,8 +22,24 @@ export default class Controller {
     }
 
 
-    formatDate(warrantyEntries){
-        warrantyEntries.forEach(entry => entry.date_ = new Date(entry.date_).toLocaleDateString().split(",")[0])
+    formatAndSort(warrantyEntries){
+        warrantyEntries
+            .sort(this.sortByDate())
+            .forEach(entry => entry.date_ = this.formatDate(entry.date_));
+    }
+
+    sortByDate(){
+        const date = "date_";
+        const sortOrder = 1;
+
+        return function (a,b){
+            const result = (a[date] < b[date]) ? -1 : (a[date] > b[date]) ? 1 : 0;
+            return result * sortOrder;
+        }
+    }
+
+    formatDate(date){
+        return new Date(date).toLocaleDateString().split(",")[0];
     }
 
 }

@@ -19,7 +19,6 @@ btnGet.addEventListener('click', () => {
 });
 
 btnPost.addEventListener('click', () => {
-    console.log(new Date())
     const data = {
         date_: new Date().toISOString().split("T")[0],
         machine: 'Master250',
