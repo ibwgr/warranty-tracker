@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Warranty-Tracker</title>
   <link rel="stylesheet" href="view/stylesheets/style.css">
-  <script src="view/javascripts/navigation.js"></script>
+  <script src="view/scripts/navigation.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="http://code.highcharts.com/maps/modules/map.js"></script>
 </head>
 
 <body>
@@ -24,12 +27,30 @@
       </ul>
     </nav>
   </header>
-  <div class="contentContainer">
-  <h1 class="title">Warranty-Tracker</h1>
-  <button type="button" id="testbutton-get">get</button>
-  <button type="button" id="testbutton-post">post</button>
-  </div>
+    <div class="grid-container">
+      <div class="title">
+        <h1>Warranty-Tracker</h1>
+      </div>
+      <div class="graph">
+        <div id="trend-graph"></div>
+      </div>
+      <div class="action-bar">
+        <button type="button" id="testbutton-get">get</button>
+        <button type="button" id="testbutton-post">post</button>
+      </div>
+      <div class="table-wrapper">
+        <div class="table">
+          <table style="width: 100%;">
+            <thead></thead>
+            <tbody class="warranty-table">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   <script src="view/test.js"></script>
+  <script type="module" src="view/scripts/app.js"></script>
 </body>
 
 </html>
