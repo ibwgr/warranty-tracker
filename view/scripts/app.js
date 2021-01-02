@@ -4,7 +4,7 @@ import Data from './data.remote.js'
 import Charts from "./charts.js";
 
 const charts = new Charts()
-const view = new View(".action-bar",".table", charts)
+const view = new View(".action-bar",".table-wrapper", charts)
 const data = new Data("http://localhost:3000")
 const controller = new Controller(view, data)
 

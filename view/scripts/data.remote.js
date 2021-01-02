@@ -4,7 +4,7 @@ export default class Data {
         this.serverUrl = serverUrl;
     }
 
-    async getWarrantyEntriesOfLastTwelveMonths(){
+    async getWarrantyEntriesOfLastTwelveMonths() {
         let url = new URL(this.serverUrl + "/warranty/last-12-month")
 
         return fetch(url.toString(), {
@@ -20,7 +20,7 @@ export default class Data {
         })
     }
 
-    async getWarrantyEntriesOfCurrentMonth(){
+    async getWarrantyEntriesOfCurrentMonth() {
         let url = new URL(this.serverUrl + "/warranty/current-month")
 
         return fetch(url.toString(), {

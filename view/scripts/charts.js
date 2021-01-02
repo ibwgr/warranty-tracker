@@ -1,9 +1,9 @@
 export default class Charts {
-    createTrend(entries){
+    createTrend(entries) {
         createTrend(entries)
     }
 
-    updateTrend(entries){
+    updateTrend(entries) {
         updateTrend(entries)
     }
 }

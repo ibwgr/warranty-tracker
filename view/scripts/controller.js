@@ -5,7 +5,7 @@ export default class Controller {
         this.data = data;
     }
 
-    async loadAndRender(){
+    async loadAndRender() {
         try{
             const warrantyEntries = await this.data.getWarrantyEntriesOfCurrentMonth();
             this.formatAndSort(warrantyEntries)
@@ -15,20 +15,18 @@ export default class Controller {
         }
     }
 
-
     updateTrend(warrantyEntries) {
         this.view.updateTrend(
             (warrantyEntries.map(values => [Date.parse(values.date_), values.time_])));
     }
 
-
-    formatAndSort(warrantyEntries){
+    formatAndSort(warrantyEntries) {
         warrantyEntries
             .sort(this.sortByDate())
             .forEach(entry => entry.date_ = this.formatDate(entry.date_));
     }
 
-    sortByDate(){
+    sortByDate() {
         const date = "date_";
         const sortOrder = 1;
 
@@ -38,7 +36,7 @@ export default class Controller {
         }
     }
 
-    formatDate(date){
+    formatDate(date) {
         return new Date(date).toLocaleDateString().split(",")[0];
     }
 

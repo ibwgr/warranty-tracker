@@ -4,7 +4,7 @@ const switchNavMenuItem = (menuItems) => {
 
     menuItems.forEach(menuItem => {
         const href = menuItem.getAttribute('href')
-        if ((current.includes(href) && href !== "/") || ( href === "/" && current === "/")){
+        if ((current.includes(href) && href !== "/") || ( href === "/" && current === "/")) {
             menuItem.className = "active";
         }else {
             menuItem.className = "inactive";
@@ -13,5 +13,5 @@ const switchNavMenuItem = (menuItems) => {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    switchNavMenuItem(document.querySelectorAll('.navigation a'))
+    switchNavMenuItem(document.querySelectorAll('.navigation a'));
 });
