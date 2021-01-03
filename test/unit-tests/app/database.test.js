@@ -11,5 +11,6 @@ describe('database', function () {
                 const result = testDate[0].date_.valueOf();
                 assert.strictEqual(result, testDate1HourLater);
             });
+
     })
 })

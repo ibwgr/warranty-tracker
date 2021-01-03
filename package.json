@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node app/app.js",
-    "test": "./node_modules/.bin/mocha test/*.test.js --timeout 8000",
+    "test": "npm run test:unit & npm run test:e2e",
+    "test:unit": "npm run test:unit:app & npm run test:unit:view",
+    "test:unit:app": "nyc ./node_modules/.bin/mocha test/unit-tests/app/*.test.js --exit\"",
+    "test:unit:view": "nyc ./node_modules/.bin/mocha test/unit-tests/view/*.test.js --exit\"",
+    "test:e2e": "./node_modules/.bin/mocha test/*.test.js --timeout 8000",
     "dev": "./node_modules/.bin/nodemon app/app.js"
   },
   "dependencies": {
@@ -16,13 +20,16 @@
   "devDependencies": {
     "@babel/core": "7.7.5",
     "@babel/polyfill": "7.7.0",
-    "@babel/register": "7.7.4",
     "@babel/preset-env": "7.7.6",
+    "@babel/register": "7.7.4",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "chai-spies": "^1.0.0",
     "chromedriver": "^87.0.4",
     "mocha": "^8.2.1",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
     "selenium-webdriver": "^4.0.0-alpha.8",
-    "nodemon": "^2.0.4"
+    "sinon": "^9.2.2"
   }
 }
