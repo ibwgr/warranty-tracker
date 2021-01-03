@@ -28,7 +28,6 @@ describe('controller', function () {
     beforeEach(function(){
         this.view = sinon.createStubInstance(View)
         this.data = new Data("http://localhost:3000")
-        this.ctrl = new Controller(this.view, this.data)
     })
 
     afterEach(() => {
@@ -38,12 +37,39 @@ describe('controller', function () {
 
     describe('loadAndRender()', function () {
         it('should call data once', function () {
-            const stub = sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeData)
+            const stub = sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeData);
+            const controller = new Controller(this.view, this.data);
 
-            this.ctrl.loadAndRender();
+            controller.loadAndRender();
 
             expect(stub.calledOnce).to.be.true;
         });
 
+
+        it('should call renderList() once', function() {
+            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeData);
+            const stubbedView = {
+                renderList: sinon.stub()
+            };
+
+            const controller = new Controller(stubbedView, this.data);
+            controller.loadAndRender();
+
+            expect(stubbedView.renderList.calledOnce);
+            expect(stubbedView.renderList.args[0] === fakeData);
+        });
+
+        it('should call renderList() with correct data', function() {
+            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeData);
+            const stubbedView = {
+                renderList: sinon.stub()
+            };
+
+            const controller = new Controller(stubbedView, this.data);
+            controller.loadAndRender();
+
+            expect(stubbedView.renderList.calledOnce);
+            expect(stubbedView.renderList.args[0] === fakeData);
+        });
     })
 })
