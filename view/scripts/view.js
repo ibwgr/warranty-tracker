@@ -57,4 +57,8 @@ export default class View {
     updateTrend(warrantyEntries) {
         this.charts.updateTrend(warrantyEntries);
     }
+
+    renderError(errorMessage){
+        window.alert(errorMessage);
+    }
 }
