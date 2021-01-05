@@ -8,10 +8,10 @@ export default class Controller {
     async loadAndRender() {
         try{
             const warrantyEntries = await this.data.getWarrantyEntriesOfCurrentMonth();
-            this.formatAndSort(warrantyEntries)
+            this.formatAndSort(warrantyEntries);
             this.view.renderList(warrantyEntries);
         } catch (e) {
-            console.log(e);
+            this.view.renderError(e.message);
         }
     }
 

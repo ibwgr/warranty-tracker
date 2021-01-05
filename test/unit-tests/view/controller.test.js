@@ -13,9 +13,19 @@ import View from '../../../view/scripts/view'
 
 
 describe('controller', function () {
-    const fakeData = [
+
+    const fakeDataSorted = [
         {
-            date_: new Date(),
+            date_: new Date('2020-12-14'),
+            machine: 'Master250',
+            customer: 'CCL USA',
+            contact: 'M. Muster',
+            issue: 'TestData',
+            employee: 'Employee 1',
+            time_: '5:30:00'
+        },
+        {
+            date_: new Date('2021-01-01'),
             machine: 'Master250',
             customer: 'CCL USA',
             contact: 'M. Muster',
@@ -23,53 +33,97 @@ describe('controller', function () {
             employee: 'Employee 1',
             time_: '5:30:00'
         }
-    ]
+    ];
+
+    const fakeDataUnsorted = [
+        {
+            date_: new Date('2021-01-01'),
+            machine: 'Master250',
+            customer: 'CCL USA',
+            contact: 'M. Muster',
+            issue: 'TestData',
+            employee: 'Employee 1',
+            time_: '5:30:00'
+        },
+        {
+            date_: new Date('2020-12-14'),
+            machine: 'Master250',
+            customer: 'CCL USA',
+            contact: 'M. Muster',
+            issue: 'TestData',
+            employee: 'Employee 1',
+            time_: '5:30:00'
+        }
+    ];
 
     beforeEach(function(){
-        this.view = sinon.createStubInstance(View)
-        this.data = new Data("http://localhost:3000")
-    })
+        this.view = sinon.createStubInstance(View);
+        this.data = new Data("http://localhost:3000");
+        this.controller = new Controller(this.view, this.data);
+    });
 
     afterEach(() => {
         sinon.restore();
     });
 
-
     describe('loadAndRender()', function () {
-        it('should call data once', function () {
-            const stub = sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeData);
-            const controller = new Controller(this.view, this.data);
 
-            controller.loadAndRender();
+        it('should call data once', async function () {
+            const stub = sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
+
+            await this.controller.loadAndRender();
 
             expect(stub.calledOnce).to.be.true;
         });
 
+        it('should call renderList() once', async function() {
+            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
+            this.view.renderList = sinon.spy();
 
-        it('should call renderList() once', function() {
-            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeData);
-            const stubbedView = {
-                renderList: sinon.stub()
-            };
+            await this.controller.loadAndRender();
 
-            const controller = new Controller(stubbedView, this.data);
-            controller.loadAndRender();
-
-            expect(stubbedView.renderList.calledOnce);
-            expect(stubbedView.renderList.args[0] === fakeData);
+            expect(this.view.renderList.calledOnce).to.be.true;
         });
 
-        it('should call renderList() with correct data', function() {
-            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeData);
-            const stubbedView = {
-                renderList: sinon.stub()
-            };
+        it('should call renderList() twice', async function() {
+            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
+            this.view.renderList = sinon.spy();
 
-            const controller = new Controller(stubbedView, this.data);
-            controller.loadAndRender();
+            await this.controller.loadAndRender();
+            await this.controller.loadAndRender();
 
-            expect(stubbedView.renderList.calledOnce);
-            expect(stubbedView.renderList.args[0] === fakeData);
+            expect(this.view.renderList.calledTwice).to.be.true;
+        });
+
+        it('should call renderList() with correct data', async function() {
+            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
+            this.view.renderList = sinon.spy();
+
+            await this.controller.loadAndRender();
+
+            expect(this.view.renderList.calledOnce).to.be.true;
+            expect(this.view.renderList.getCall(0).args[0] === fakeDataSorted).to.be.true;
+        });
+
+        it('should call renderList() with correct sorted data', async function() {
+            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataUnsorted);
+            this.view.renderList = sinon.spy();
+
+            await this.controller.loadAndRender();
+
+            expect(this.view.renderList.calledOnce).to.be.true;
+            expect(this.view.renderList.getCall(0).args[0][0].date_ === fakeDataSorted[0].date_).to.be.true;
+        });
+
+        it('should call renderError() with correct message', async function() {
+            const errorMessage = "expected message";
+            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").throws(new Error(errorMessage));
+            this.view.renderError = sinon.spy();
+
+            await this.controller.loadAndRender();
+
+            expect(this.view.renderError.calledOnce).to.be.true;
+            expect(this.view.renderError.getCall(0).args[0] === errorMessage).to.be.true;
         });
     })
 })
