@@ -35,6 +35,26 @@
         <div id="trend-graph"></div>
       </div>
       <div class="action-bar">
+        <button type="button" id="create-entry">Create Entry</button>
+        <div id="plane" style="display: none"></div>
+        <div id="popup" style="display: none">
+          <div id="top-bar"><div id="exit"></div></div>
+          <div id="left-part">
+            <input type="text" id="machine" value="machine" name="?">
+            <input type="text" id="customer" value="customer" name="?">
+            <input type="text" id="contact" value="contact" name="?">
+            <input type="text" id="issue" value="issue" name="?">
+            <input type="text" id="employee" value="employee" name="?">
+          </div>
+          <div id="right-part">
+            <input type="text" id="calendar" name="?">
+            <select id="time-spend">
+              <option value="15">15</option>
+              <option value="30">30</option>
+            </select>
+            <button id="confirm">Confirm</button>
+          </div>
+        </div>
         <button type="button" id="testbutton-get">get</button>
         <button type="button" id="testbutton-post">post</button>
       </div>

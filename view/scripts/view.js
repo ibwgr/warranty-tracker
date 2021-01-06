@@ -1,6 +1,7 @@
 export default class View {
 
-    constructor(actionBarRootSelector, warrantyTableRootSelector, graph) {
+    constructor(actionBarRootSelector, warrantyTableRootSelector, graph, popup) {
+        this.popup = popup;
         this.graph = graph;
         this.graph.createTrend(0);
         this.table = document.querySelector(warrantyTableRootSelector + ' .warranty-table');
