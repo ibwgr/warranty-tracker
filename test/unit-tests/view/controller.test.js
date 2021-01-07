@@ -110,9 +110,10 @@ describe('controller', function () {
             this.view.renderList = sinon.spy();
 
             await this.controller.loadAndRender();
+            const expectedDate = fakeDataSorted[0].date_;
 
             expect(this.view.renderList.calledOnce).to.be.true;
-            expect(this.view.renderList.getCall(0).args[0][0].date_ === fakeDataSorted[0].date_).to.be.true;
+            assert.strictEqual((this.view.renderList.getCall(0).args[0][0].date_),expectedDate )
         });
 
         it('should call renderError() with correct message', async function() {
