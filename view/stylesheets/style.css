@@ -151,8 +151,32 @@ th {
   top: 0;
   right: 0;
   background-color: red;
+  border-color: red;
   height: 100%;
   width: 1.5rem;
+  opacity: 0.4;
+}
+
+#exit:hover {
+  opacity: 1;
+}
+
+#exit:before, #exit:after {
+  position: absolute;
+  top: 0;
+  left: 9px;
+  content: ' ';
+  height: 15px;
+  width: 2px;
+  background-color: black;
+}
+
+#exit:before {
+  transform: rotate(45deg);
+}
+
+#exit:after {
+  transform: rotate(-45deg);
 }
 
 #left-part {

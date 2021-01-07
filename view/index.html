@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Warranty-Tracker</title>
   <link rel="stylesheet" href="view/stylesheets/style.css">
+  <link rel="stylesheet" href="view/stylesheets/datepicker.css">
   <script src="view/scripts/navigation.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/highcharts-3d.js"></script>
   <script src="http://code.highcharts.com/maps/modules/map.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
 </head>
 
 <body>
@@ -38,19 +41,19 @@
         <button type="button" id="create-entry">Create Entry</button>
         <div id="plane" style="display: none"></div>
         <div id="popup" style="display: none">
-          <div id="top-bar"><div id="exit"></div></div>
+          <div id="top-bar"><button id="exit" value="Exit"></button></div>
           <div id="left-part">
-            <input type="text" id="machine" value="machine" name="?">
-            <input type="text" id="customer" value="customer" name="?">
-            <input type="text" id="contact" value="contact" name="?">
-            <input type="text" id="issue" value="issue" name="?">
-            <input type="text" id="employee" value="employee" name="?">
+            <input type="text" id="machine" placeholder="machine">
+            <input type="text" id="customer" placeholder="customer">
+            <input type="text" id="contact" placeholder="contact">
+            <input type="text" id="issue" placeholder="issue">
+            <input type="text" id="employee" placeholder="employee">
           </div>
           <div id="right-part">
-            <input type="text" id="calendar" name="?">
+            <div class="datepickerGroup">
+              <input type="text" id="choose-date" placeholder="Please select Date Time" data-input>
+            </div>
             <select id="time-spend">
-              <option value="15">15</option>
-              <option value="30">30</option>
             </select>
             <button id="confirm">Confirm</button>
           </div>
@@ -69,6 +72,8 @@
       </div>
     </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
   <script src="view/test.js"></script>
   <script type="module" src="view/scripts/app.js"></script>
 </body>

@@ -1,0 +1,52 @@
+/****************************/
+/* datepicker specific css  */
+/****************************/
+
+.datepickerGroup {
+    display: flex;
+    position: relative;
+    max-height: 75px;
+}
+
+#choose-date {
+    color: #424242;
+    display: block;
+}
+
+#choose-date:focus {
+    border: 2px solid #80ff80;;
+    border-radius: 4px;
+}
+
+.bar {
+    clear:both;
+    position: relative;
+    display: block;
+    width: 315px;
+}
+
+.bar:before,
+.bar:after {
+    background: #80ff80;
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+    left: 50%;
+}
+
+.bar:after {
+    right: 50%;
+}
+
+#choose-date:focus ~ .bar:before,
+#choose-date:focus ~ .bar:after {
+    width: 50%;
+}
