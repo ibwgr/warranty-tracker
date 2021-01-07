@@ -1,8 +1,8 @@
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
     user: "root",
-    password: "ibwsa3",
-    port: 3333,
+    //password: "ibwsa3",
+    port: 3306,
     database: "warrantydb",
     connectionLimit: 5
 });
