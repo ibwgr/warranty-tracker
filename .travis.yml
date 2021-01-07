@@ -10,7 +10,7 @@ addons:
   mariadb: '10.0'
 before_script:
   # setup database
-  - mysql -u root --password="ibwsa3" --port=3333 < warrantyDB.sql
+  - sudo mysql -u root --password="ibwsa3" --port=3333 < warrantyDB.sql
   # build express application and serve it
   - npm install & npm run start &
   # give background tasks some time to start up
