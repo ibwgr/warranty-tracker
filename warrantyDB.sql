@@ -1,3 +1,7 @@
+# Create Testuser
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON *.* TO 'root'@'localhost';
+
 CREATE DATABASE IF NOT EXISTS warrantydb;
 USE warrantydb;
 
