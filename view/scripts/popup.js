@@ -12,6 +12,18 @@ export default class Popup {
         this.issue = document.querySelector('#issue');
         this.employee = document.querySelector('#employee');
         this.time = document.querySelector('#time-spend')
+        this.date = null;
+
+        flatpickr( '#choose-date', {
+            enableTime: false,
+            time_24hr: false,
+            altFormat: false,
+            dateFormat: "d.m.Y",
+            onClose: (selectedDates) => {
+                this.date = selectedDates[0];
+                console.log(this.date);
+            }
+        });
 
         this.createTimeOptions();
 
@@ -28,17 +40,6 @@ export default class Popup {
         this.confirmButton.addEventListener('click', () => {
             this.getEntryData();
         });
-
-/*        let datePicker = flatpickr( '#choose-date', {
-            enableTime: true,
-            time_24hr: true,
-            "maxDate": new Date().fp_incr(0),
-            dateFormat: "d.m.Y H:i",
-            onClose: (selectedDates, dateStr, instance) => {
-                datePickerTo.set('minDate', dateStr)
-                this.dateFrom = selectedDates[0]
-            }
-        });*/
     }
 
     getEntryData() {
@@ -47,7 +48,9 @@ export default class Popup {
             customer: this.customer.value,
             contact: this.contact.value,
             issue: this.issue.value,
-            employee: this.employee.value
+            employee: this.employee.value,
+            date: this.date,
+            time: this.time.value
         };
         console.log(entryData);
         return entryData;
@@ -57,7 +60,7 @@ export default class Popup {
         for (let i = 0; i <= 12; i += 0.25) {
             const option = document.createElement('option');
             option.textContent = `${i} h`;
-            option.value = `${i};`
+            option.value = `${i}`
             this.time.appendChild(option);
         }
     }
