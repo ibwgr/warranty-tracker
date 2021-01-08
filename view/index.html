@@ -40,7 +40,10 @@
         <button type="button" id="create-entry">Create Entry</button>
         <div id="plane" style="display: none"></div>
         <div id="popup" style="display: none">
-          <div id="top-bar"><button id="exit" value="Exit"></button></div>
+          <div id="top-bar">
+            <div id="top-bar-label">Create Warranty Entry</div>
+            <button id="exit" value="Exit"></button>
+          </div>
           <div id="left-part">
             <input type="text" id="machine" placeholder="machine">
             <input type="text" id="customer" placeholder="customer">
@@ -50,9 +53,10 @@
           </div>
           <div id="right-part">
             <div id="datepicker">
-              <input type="text" id="choose-date" placeholder="Please select Date" data-input>
+              <input type="text" id="choose-date" placeholder="Please select date" data-input>
             </div>
-            <select id="time-spend">
+            <select id="time-spend" required>
+              <option value="" disabled selected hidden>Please add time</option>
             </select>
             <button id="confirm">Confirm</button>
           </div>

@@ -12,7 +12,7 @@ export default class Popup {
         this.issue = document.querySelector('#issue');
         this.employee = document.querySelector('#employee');
         this.time = document.querySelector('#time-spend')
-        this.date = null;
+        this.date = undefined;
 
         flatpickr( '#choose-date', {
             enableTime: false,
@@ -59,8 +59,8 @@ export default class Popup {
     createTimeOptions() {
         for (let i = 0; i <= 12; i += 0.25) {
             const option = document.createElement('option');
-            option.textContent = `${i} h`;
-            option.value = `${i}`
+            option.textContent = i.toFixed(2);
+            option.value = i.toFixed(2);
             this.time.appendChild(option);
         }
     }

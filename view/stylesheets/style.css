@@ -114,18 +114,19 @@ th {
 
 #popup {
   position: fixed;
-  top: 35%;
-  left: 30%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   height: 30%;
-  width: 40%;
   display: grid;
   grid-template-areas:
     "top-bar top-bar"
     "left-part right-part";
-  grid-template-rows: 0.5fr 5fr;
+  grid-template-rows: 0.6fr 5fr;
   grid-template-columns: 1fr 1fr;
   justify-content: space-between;
   background-color: lightgrey;
+  box-shadow: -2px -2px 2px rgba(100, 100, 100, .75) inset, 2px 2px 2px white inset;
   z-index: 2000;
 }
 
@@ -141,9 +142,19 @@ th {
 }
 
 #top-bar {
+  display: flex;
   grid-area: top-bar;
   background-color: grey;
   position: relative;
+  box-shadow: -2px -2px 2px rgba(100, 100, 100, .75) inset, 1px 1px 2px white inset;
+}
+
+#top-bar-label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  padding-left: 5px;
 }
 
 #exit {
@@ -166,7 +177,7 @@ th {
   top: 0;
   left: 9px;
   content: ' ';
-  height: 15px;
+  height: 18px;
   width: 2px;
   background-color: black;
 }
@@ -179,11 +190,14 @@ th {
   transform: rotate(-45deg);
 }
 
+#confirm:hover {
+  background-color: lightgreen;
+}
+
 #left-part {
   grid-area: left-part;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   justify-content: space-around;
   padding: 0.5rem;
 }
@@ -192,7 +206,10 @@ th {
   grid-area: right-part;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   justify-content: space-evenly;
   padding: 0.5rem;
+}
+
+select:invalid {
+  color: gray;
 }
