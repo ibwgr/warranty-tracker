@@ -28,11 +28,9 @@ export default class Controller {
 
     sortByDate() {
         const date = "date_";
-        const sortOrder = 1;
 
         return function (a,b){
-            const result = (a[date] < b[date]) ? -1 : (a[date] > b[date]) ? 1 : 0;
-            return result * sortOrder;
+            return new Date(b[date]) - new Date(a[date]);
         }
     }
 

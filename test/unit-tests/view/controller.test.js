@@ -16,7 +16,7 @@ describe('controller', function () {
 
     const fakeDataSorted = [
         {
-            date_: '2020-12-14',
+            date_: new Date('2020-12-14'),
             machine: 'Master250',
             customer: 'CCL USA',
             contact: 'M. Muster',
@@ -25,7 +25,7 @@ describe('controller', function () {
             time_: '5:30:00'
         },
         {
-            date_: '2021-01-01',
+            date_: new Date('2021-01-01'),
             machine: 'Master250',
             customer: 'CCL USA',
             contact: 'M. Muster',
@@ -37,7 +37,7 @@ describe('controller', function () {
 
     const fakeDataUnsorted = [
         {
-            date_:'2021-01-01',
+            date_:new Date('2021-01-01'),
             machine: 'Master250',
             customer: 'CCL USA',
             contact: 'M. Muster',
@@ -46,7 +46,7 @@ describe('controller', function () {
             time_: '5:30:00'
         },
         {
-            date_:'2020-12-14',
+            date_:new Date('2020-12-14'),
             machine: 'Master250',
             customer: 'CCL USA',
             contact: 'M. Muster',
