@@ -17,13 +17,7 @@ if ( process.env.CI === true ){
     }
 }
 
-const pool = mariadb.createPool({
-    user: "root",
-    password: "ibwsa3",
-    port: 3333,
-    database: "warrantydb",
-    connectionLimit: 5
-});
+const pool = mariadb.createPool(config);
 
 async function getDataByQuery(query, callback, queryValues) {
     let conn;
