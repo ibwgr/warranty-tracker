@@ -5,8 +5,16 @@ export default class Controller {
         this.data = data;
     }
 
+    async postEntryData(entryData) {
+        try {
+            await this.data.addWarrantyEntry(entryData);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async loadAndRender() {
-        try{
+        try {
             const warrantyEntries = await this.data.getWarrantyEntriesOfCurrentMonth();
             this.formatAndSort(warrantyEntries)
             this.view.renderList(warrantyEntries);

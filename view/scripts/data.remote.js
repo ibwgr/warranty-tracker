@@ -36,4 +36,22 @@ export default class Data {
         })
     }
 
+    async addWarrantyEntry(entryData) {
+        let url = new URL(this.serverUrl + "/warranty/add-entry");
+
+        return fetch(url.toString(),  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(entryData)
+        }).then(response => {
+            if (response.ok){
+                return response.json()
+            }else{
+                return Promise.reject(response)
+            }
+        })
+    }
+
 }

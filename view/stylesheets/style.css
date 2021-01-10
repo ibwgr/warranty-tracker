@@ -122,7 +122,7 @@ th {
   grid-template-areas:
     "top-bar top-bar"
     "left-part right-part";
-  grid-template-rows: 0.6fr 5fr;
+  grid-template-rows: 0.7fr 5fr;
   grid-template-columns: 1fr 1fr;
   justify-content: space-between;
   background-color: lightgrey;
@@ -174,7 +174,7 @@ th {
 
 #exit:before, #exit:after {
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 9px;
   content: ' ';
   height: 18px;
