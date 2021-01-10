@@ -1,6 +1,6 @@
 const mariadb = require('mariadb');
 let config = {};
-if ( process.env.CI === true ){
+if (process.env.CI === "true"){
     config = {
         user: "root",
         port: 3306,
