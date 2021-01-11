@@ -49,7 +49,7 @@ export default class Popup {
         }
     }
 
-    getEntryData() {
+    getWarrantyEntry() {
         this.addOneHourToUTCTimezone()
         return {
             date_: this.date.toISOString().split("T")[0],

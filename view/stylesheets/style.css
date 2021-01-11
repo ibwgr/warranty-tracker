@@ -190,26 +190,41 @@ th {
   transform: rotate(-45deg);
 }
 
-#confirm:hover {
-  background-color: lightgreen;
-}
-
 #left-part {
   grid-area: left-part;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
 }
 
 #right-part {
   grid-area: right-part;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  padding: 0.5rem;
+  justify-content: space-around;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+}
+
+select {
+  height: 19.2px;
 }
 
 select:invalid {
   color: gray;
+}
+
+.spare {
+  height: 19.2px;
+}
+
+#datepicker {
+  display: flex;
+  position: relative;
+  max-height: 75px;
+}
+
+#choose-date {
+  color: #424242;
+  display: block;
 }

@@ -20,7 +20,7 @@ popup.confirmButton.addEventListener('click', () => {
         alert('At least machine, employee, date and time inputs must be made');
         return;
     }
-    controller.postEntryData(popup.getEntryData());
+    controller.postWarrantyEntry(popup.getWarrantyEntry());
     controller.loadAndRender();
     popup.displayPopupAndPlane();
 })

@@ -5,9 +5,9 @@ export default class Controller {
         this.data = data;
     }
 
-    async postEntryData(entryData) {
+    async postWarrantyEntry(warrantyEntry) {
         try {
-            await this.data.addWarrantyEntry(entryData);
+            await this.data.addWarrantyEntry(warrantyEntry);
         } catch (e) {
             console.log(e);
         }

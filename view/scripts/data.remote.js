@@ -36,7 +36,7 @@ export default class Data {
         })
     }
 
-    async addWarrantyEntry(entryData) {
+    async addWarrantyEntry(warrantyEntry) {
         let url = new URL(this.serverUrl + "/warranty/add-entry");
 
         return fetch(url.toString(),  {
@@ -44,7 +44,7 @@ export default class Data {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(entryData)
+            body: JSON.stringify(warrantyEntry)
         }).then(response => {
             if (response.ok){
                 return response.json()
