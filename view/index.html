@@ -10,6 +10,7 @@
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/highcharts-3d.js"></script>
   <script src="http://code.highcharts.com/maps/modules/map.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
 </head>
 
 <body>
@@ -35,6 +36,32 @@
         <div id="trend-graph"></div>
       </div>
       <div class="action-bar">
+        <button type="button" id="create-entry">Create Entry</button>
+        <div id="plane" style="display: none"></div>
+        <div id="popup" style="display: none">
+          <div id="top-bar">
+            <div id="top-bar-label">Create Warranty Entry</div>
+            <button id="exit" value="Exit"></button>
+          </div>
+          <div id="left-part">
+            <input type="text" id="machine" placeholder="machine">
+            <input type="text" id="customer" placeholder="customer">
+            <input type="text" id="contact" placeholder="contact">
+            <input type="text" id="issue" placeholder="issue">
+            <input type="text" id="employee" placeholder="employee">
+          </div>
+          <div id="right-part">
+            <div id="datepicker">
+              <input type="text" id="choose-date" placeholder="Please select date" data-input>
+            </div>
+            <select id="time-spend" required>
+              <option value="" disabled selected hidden>Please add time</option>
+            </select>
+            <div class="spare"></div>
+            <div class="spare"></div>
+            <button id="confirm">Confirm</button>
+          </div>
+        </div>
         <button type="button" id="testbutton-get">get</button>
         <button type="button" id="testbutton-post">post</button>
       </div>
@@ -49,6 +76,8 @@
       </div>
     </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
   <script src="view/test.js"></script>
   <script type="module" src="view/scripts/app.js"></script>
 </body>
