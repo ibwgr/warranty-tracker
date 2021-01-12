@@ -3,14 +3,14 @@ export default class View {
     constructor(actionBarRootSelector, warrantyTableRootSelector, graph, popup) {
         this.popup = popup;
         this.graph = graph;
-        this.graph.createTrend(0);
+        this.graph.createTrend();
         this.table = document.querySelector(warrantyTableRootSelector + ' .warranty-table');
         this.tableTitles = document.querySelector(warrantyTableRootSelector + ' thead');
         this.tableTitles.appendChild(this.renderColumnTitles());
     }
 
-    createTrend(warrantyEntries) {
-        this.charts.createTrend(warrantyEntries);
+    updateTrend(months, workingHoursPerMonths) {
+       this.graph.updateTrend(months, workingHoursPerMonths);
     }
 
     renderList(warrantyEntries) {
@@ -56,10 +56,6 @@ export default class View {
 
     renderEntry(entry) {
         return `<td>${entry}</td>`;
-    }
-
-    updateTrend(warrantyEntries) {
-        this.charts.updateTrend(warrantyEntries);
     }
 
     renderError(errorMessage){
