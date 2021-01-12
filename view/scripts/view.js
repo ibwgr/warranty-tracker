@@ -1,10 +1,12 @@
 export default class View {
 
-    constructor(actionBarRootSelector, warrantyTableRootSelector, graph) {
+    constructor(actionBarRootSelector, warrantyTableRootSelector, graph, popup) {
+        this.popup = popup;
         this.graph = graph;
         this.graph.createTrend(0);
         this.table = document.querySelector(warrantyTableRootSelector + ' .warranty-table');
         this.tableTitles = document.querySelector(warrantyTableRootSelector + ' thead');
+        this.tableTitles.appendChild(this.renderColumnTitles());
     }
 
     createTrend(warrantyEntries) {
@@ -12,7 +14,9 @@ export default class View {
     }
 
     renderList(warrantyEntries) {
-        this.tableTitles.appendChild(this.renderColumnTitles());
+        while (this.table.firstChild) {
+            this.table.removeChild(this.table.firstChild);
+        }
         warrantyEntries.map(entry => this.table.appendChild(this.renderWarrantyEntry(entry)));
     }
 
