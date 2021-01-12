@@ -15,8 +15,10 @@ export default class Controller {
 
     async loadAndRender() {
         try {
+            const warrantyEntriesRecentYear = await this.data.getWarrantyEntriesOfLastTwelveMonths();
+            let workingHoursPerMonths = this.getWorkingHoursPerMonths(warrantyEntriesRecentYear);
             const lastTwelveMonths = this.getLastTwelveMonths();
-            this.view.updateTrend(lastTwelveMonths, [1, 12, 5, 46, 5, 6, 7, 8, 9, 10, 11, 12])
+            this.view.updateTrend(lastTwelveMonths, workingHoursPerMonths)
 
             const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesOfCurrentMonth();
             this.formatAndSort(warrantyEntriesCurrentMonth)
@@ -31,6 +33,23 @@ export default class Controller {
         warrantyEntries
             .sort(this.sortByDate())
             .forEach(entry => entry.date_ = this.formatDate(entry.date_));
+    }
+
+    getWorkingHoursPerMonths(entries){
+        const date = new Date();
+        let workingHoursPerMonths = [];
+        for (let i = 0; i < 12; i++){
+            workingHoursPerMonths.push(entries
+                .filter(entry => new Date(entry.date_).getMonth() === date.getMonth())
+                .reduce((totalWorkingHours, entry) => {
+                    const time = entry.time_.split(":");
+                    const hours = parseInt(time[0]);
+                    const decimalMinutes = parseInt(time[1]);
+                    return totalWorkingHours+  ( hours + ( decimalMinutes/ 100));
+                }, 0));
+            date.setMonth(date.getMonth() - 1);
+        }
+        return workingHoursPerMonths.reverse();
     }
 
     getLastTwelveMonths() {
