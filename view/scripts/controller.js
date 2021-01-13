@@ -17,8 +17,7 @@ export default class Controller {
         try {
             const warrantyEntriesRecentYear = await this.data.getWarrantyEntriesOfLastTwelveMonths();
             let workingHoursPerMonths = this.getWorkingHoursPerMonths(warrantyEntriesRecentYear);
-            const lastTwelveMonths = this.getLastTwelveMonths();
-            this.view.updateTrend(lastTwelveMonths, workingHoursPerMonths)
+            this.view.updateTrend(workingHoursPerMonths.months, workingHoursPerMonths.workingHours)
 
             const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesOfCurrentMonth();
             this.formatAndSort(warrantyEntriesCurrentMonth)
@@ -29,16 +28,14 @@ export default class Controller {
         }
     }
 
-    formatAndSort(warrantyEntries) {
-        warrantyEntries
-            .sort(this.sortByDate())
-            .forEach(entry => entry.date_ = this.formatDate(entry.date_));
-    }
-
-    getWorkingHoursPerMonths(entries){
+    getWorkingHoursPerMonths(entries) {
         const date = new Date();
-        let workingHoursPerMonths = [];
+        const workingHoursPerMonths = [];
+        const lastTwelveMonths = [];
+
         for (let i = 0; i < 12; i++){
+            lastTwelveMonths.push(this.getMonthNameAndYear(date));
+
             workingHoursPerMonths.push(entries
                 .filter(entry => new Date(entry.date_).getMonth() === date.getMonth())
                 .reduce((totalWorkingHours, entry) => {
@@ -47,22 +44,25 @@ export default class Controller {
                     const decimalMinutes = parseInt(time[1]);
                     return totalWorkingHours+  ( hours + ( decimalMinutes/ 100));
                 }, 0));
+
             date.setMonth(date.getMonth() - 1);
         }
-        return workingHoursPerMonths.reverse();
+
+        return {
+            months: lastTwelveMonths.reverse(),
+            workingHours: workingHoursPerMonths.reverse()
+        };
     }
 
-    getLastTwelveMonths() {
-        const date = new Date();
-        let lastTwelveMonths = [];
+    getMonthNameAndYear(date) {
         const monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        return monthNames[date.getMonth()] + " " + date.getFullYear();
+    }
 
-        for(let i = 0; i < 12; i++) {
-            lastTwelveMonths.push(monthNames[date.getMonth()] + " " + date.getFullYear());
-            date.setMonth(date.getMonth() - 1);
-        }
-
-        return lastTwelveMonths.reverse();
+    formatAndSort(warrantyEntries) {
+        warrantyEntries
+            .sort(this.sortByDate())
+            .forEach(entry => entry.date_ = this.formatDate(entry.date_));
     }
 
     sortByDate() {
