@@ -4,7 +4,7 @@ export default class Data {
         this.serverUrl = serverUrl;
     }
 
-    async getWarrantyEntriesOfLastTwelveMonths() {
+    getWarrantyEntriesOfLastTwelveMonths() {
         let url = new URL(this.serverUrl + "/warranty/last-12-month")
 
         return fetch(url.toString(), {
@@ -12,15 +12,15 @@ export default class Data {
                 'Accept': 'application/json',
             })
         }).then(response => {
-            if (response.ok){
-                return response.json()
+            if (response.ok) {
+                return response.json();
             }else{
-                return Promise.reject(response)
+                return response.json().then(json => Promise.reject(json));
             }
-        })
+        });
     }
 
-    async getWarrantyEntriesOfCurrentMonth() {
+    getWarrantyEntriesOfCurrentMonth() {
         let url = new URL(this.serverUrl + "/warranty/current-month")
 
         return fetch(url.toString(), {
@@ -28,12 +28,12 @@ export default class Data {
                 'Accept': 'application/json',
             })
         }).then(response => {
-            if (response.ok){
-                return response.json()
-            }else{
-                return Promise.reject(response)
+            if ( response.ok) {
+                return response.json();
+            } else {
+                return response.json().then(json => Promise.reject(json));
             }
-        })
+        });
     }
 
     async addWarrantyEntry(warrantyEntry) {

@@ -23,8 +23,7 @@ const getDataForTheCurrentMonth = async (req, res) => {
             res.send(result);
         });
     } catch (e) {
-        console.log(e);
-        throw new Error(e.message);
+        res.status(500).json({"message": "connection to the database refused"});
     }
 }
 

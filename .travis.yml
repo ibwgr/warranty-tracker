@@ -7,8 +7,10 @@ addons:
     packages:
       - dpkg
   chrome: stable
+  mariadb: '10.5'
 before_script:
-
+  # setup database
+  - sudo mysql -u root < warrantyDB.sql
   # build express application and serve it
   - npm install & npm run start &
   # give background tasks some time to start up

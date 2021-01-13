@@ -1,11 +1,23 @@
 const mariadb = require('mariadb');
-const pool = mariadb.createPool({
-    user: "root",
-    password: "ibwsa3",
-    port: 3333,
-    database: "warrantydb",
-    connectionLimit: 5
-});
+let config = {};
+if (process.env.CI === "true"){
+    config = {
+        user: "root",
+        port: 3306,
+        database: "warrantydb",
+        connectionLimit: 5
+    }
+} else {
+    config = {
+        user: "root",
+        password: process.env.DATABASE_PASSWORD != null ? process.env.DATABASE_PASSWORD  : 'ibwsa3',
+        port: process.env.DATABASE_PORT != null ? process.env.DATABASE_PASSWORD : 3333,
+        database: process.env.DATABASE != null ? process.env.DATABASE : "warrantydb",
+        connectionLimit: 5
+    }
+}
+
+const pool = mariadb.createPool(config);
 
 async function getDataByQuery(query, callback, queryValues) {
     let conn;

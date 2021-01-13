@@ -16,10 +16,10 @@ export default class Controller {
     async loadAndRender() {
         try {
             const warrantyEntries = await this.data.getWarrantyEntriesOfCurrentMonth();
-            this.formatAndSort(warrantyEntries)
+            this.formatAndSort(warrantyEntries);
             this.view.renderList(warrantyEntries);
         } catch (e) {
-            console.log(e);
+            this.view.renderError(e.message);
         }
     }
 
@@ -36,11 +36,9 @@ export default class Controller {
 
     sortByDate() {
         const date = "date_";
-        const sortOrder = 1;
 
         return function (a,b){
-            const result = (a[date] < b[date]) ? -1 : (a[date] > b[date]) ? 1 : 0;
-            return result * sortOrder;
+            return new Date(b[date]) - new Date(a[date]);
         }
     }
 
