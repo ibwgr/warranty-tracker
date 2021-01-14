@@ -58,7 +58,9 @@ describe('controller', function () {
 
     beforeEach(function(){
         this.view = sinon.createStubInstance(View);
-        this.data = new Data("http://localhost:3000");
+        this.data = sinon.createStubInstance(Data);
+        this.data.getWarrantyEntriesOfLastTwelveMonths = sinon.stub().returns(fakeDataSorted);
+        this.data.getWarrantyEntriesOfCurrentMonth = sinon.stub().returns(fakeDataSorted);
         this.controller = new Controller(this.view, this.data);
     });
 
@@ -68,16 +70,21 @@ describe('controller', function () {
 
     describe('loadAndRender()', function () {
 
-        it('should call data once', async function () {
-            const stub = sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
+        it('should call getWarrantyEntriesOfCurrentMonth() once', async function () {
 
             await this.controller.loadAndRender();
 
-            expect(stub.calledOnce).to.be.true;
+            expect(this.data.getWarrantyEntriesOfCurrentMonth.calledOnce).to.be.true;
+        });
+
+        it('should call getWarrantyEntriesOfLastTvelweMonths() once', async function () {
+
+            await this.controller.loadAndRender();
+
+            expect(this.data.getWarrantyEntriesOfLastTwelveMonths.calledOnce).to.be.true;
         });
 
         it('should call renderList() once', async function() {
-            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
             this.view.renderList = sinon.spy();
 
             await this.controller.loadAndRender();
@@ -86,7 +93,6 @@ describe('controller', function () {
         });
 
         it('should call renderList() twice', async function() {
-            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
             this.view.renderList = sinon.spy();
 
             await this.controller.loadAndRender();
@@ -95,9 +101,9 @@ describe('controller', function () {
             expect(this.view.renderList.calledTwice).to.be.true;
         });
 
+
         it('should call renderList() with correct data', async function() {
-            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataSorted);
-            this.view.renderList = sinon.spy();
+            this.view.renderList = sinon.stub();
 
             await this.controller.loadAndRender();
 
@@ -106,7 +112,7 @@ describe('controller', function () {
         });
 
         it('should call renderList() with correct sorted data', async function() {
-            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").returns(fakeDataUnsorted);
+            this.data.getWarrantyEntriesOfCurrentMonth = sinon.stub().returns(fakeDataUnsorted);
             this.view.renderList = sinon.spy();
 
             await this.controller.loadAndRender();
@@ -118,7 +124,7 @@ describe('controller', function () {
 
         it('should call renderError() with correct message', async function() {
             const errorMessage = "expected message";
-            sinon.stub(this.data , "getWarrantyEntriesOfCurrentMonth").throws(new Error(errorMessage));
+            this.data.getWarrantyEntriesOfCurrentMonth = sinon.stub().throws(new Error(errorMessage));
             this.view.renderError = sinon.spy();
 
             await this.controller.loadAndRender();
@@ -127,4 +133,35 @@ describe('controller', function () {
             expect(this.view.renderError.getCall(0).args[0] === errorMessage).to.be.true;
         });
     })
+
+    describe('getWorkingHoursPerMonths()', function () {
+        it('should return most recent month', function() {
+            const expectedMonth = "Jan 2021";
+
+            const workingHoursPerMonths = this.controller.getWorkingHoursPerMonths(fakeDataUnsorted);
+            const mostRecentMonth = workingHoursPerMonths.months[11];
+
+            assert.strictEqual(mostRecentMonth,expectedMonth);
+        });
+
+        it('should return most passed month', function() {
+            const expectedMonth = "Feb 2020";
+
+            const workingHoursPerMonths = this.controller.getWorkingHoursPerMonths(fakeDataUnsorted);
+            const mostPassedMonth = workingHoursPerMonths.months[0];
+
+            assert.strictEqual(mostPassedMonth,expectedMonth);
+        });
+    })
+
+    describe('getMonthNameAndYear()', function () {
+        it('should return correct acronym of month', function() {
+            const expectedAcronym = "Jan"
+
+            const monthNameAndYear = this.controller.getMonthNameAndYear(new Date('2021-01-01'));
+
+            assert.strictEqual(monthNameAndYear.split(" ")[0],expectedAcronym);
+        });
+    })
+
 })
