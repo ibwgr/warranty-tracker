@@ -37,13 +37,13 @@ export default class View {
 
     renderColumnTitles() {
         const titles = document.createElement("tr");
-        const customerTitle = this.renderTitle("Costumer");
+        const customerTitle = this.renderTitle("Customer");
         const dateTitle = this.renderTitle("Date");
         const contactTitle = this.renderTitle("Customer Contact");
-        const machineTitle = this.renderTitle("Machine Nr.");
+        const machineTitle = this.renderTitle("Machine No.");
         const issueTitle = this.renderTitle("Issue");
         const employeeTitle = this.renderTitle("Employee");
-        const timeTitle = this.renderTitle("Spend Time");
+        const timeTitle = this.renderTitle("Time Spent");
 
         titles.innerHTML = dateTitle + customerTitle + contactTitle + machineTitle + issueTitle + employeeTitle + timeTitle;
         titles.className = "column-titles";
