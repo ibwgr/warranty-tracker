@@ -160,7 +160,7 @@ describe('Index', () => {
             await driver.findElement(page.machineEntrySelector()).sendKeys('machine');
             await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
             await driver.findElement(page.dateEntrySelector()).click();
-            await driver.findElement(page.calendarDaySelector(1)).click();
+            await driver.findElement(page.calendarDaySelector(10)).click();
             await driver.findElement(page.timeOptionSelector(5)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
 
@@ -168,52 +168,5 @@ describe('Index', () => {
 
             assert.notEqual(amountOfWarrantyEntriesBeforeEntry, amountOfWarrantyEntriesAfterEntry);
         })
-
-        /*       it('entry data should be taken over to table after confirmation', async () => {
-           await driver.wait(until.elementLocated(page.warrantyTableSelector()));
-           await driver.executeScript( "const warrantyTable = document.getElementsByClassName('warranty-table')[0];" +
-               "while (warrantyTable.firstChild) {\n" +
-               "    warrantyTable.removeChild(warrantyTable.firstChild);\n" +
-               "}")
-
-           await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
-           await driver.findElement(page.buttonCreateEntrySelector()).click();
-
-           await driver.wait(until.elementLocated(page.machineEntrySelector()));
-           await driver.wait(until.elementLocated(page.customerEntrySelector()));
-           await driver.wait(until.elementLocated(page.contactEntrySelector()));
-           await driver.wait(until.elementLocated(page.issueEntrySelector()));
-           await driver.wait(until.elementLocated(page.employeeEntrySelector()));
-           await driver.wait(until.elementLocated(page.dateEntrySelector()));
-           await driver.wait(until.elementLocated(page.timeEntrySelector()));
-           await driver.wait(until.elementLocated(page.buttonConfirmSelector()));
-
-           await driver.findElement(page.machineEntrySelector()).sendKeys('machine');
-           await driver.findElement(page.customerEntrySelector()).sendKeys('customer');
-           await driver.findElement(page.contactEntrySelector()).sendKeys('contact');
-           await driver.findElement(page.issueEntrySelector()).sendKeys('issue');
-           await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
-           await driver.findElement(page.dateEntrySelector()).click();
-           await driver.findElement(page.calendarDaySelector(1)).click();
-           await driver.findElement(page.timeOptionSelector(6)).click();
-           await driver.findElement(page.buttonConfirmSelector()).click();
-
-           await driver.wait(until.elementLocated(page.warrantyTableRowSelector(1)));
-           const dateEntry = await driver.findElement(page.warrantyTableEntriesSelector(1)).getText();
-           const customerEntry = await driver.findElement(page.warrantyTableEntriesSelector(2)).getText();
-           const contactEntry = await driver.findElement(page.warrantyTableEntriesSelector(3)).getText();
-           const machineEntry = await driver.findElement(page.warrantyTableEntriesSelector(4)).getText();
-           const issueEntry = await driver.findElement(page.warrantyTableEntriesSelector(5)).getText();
-           const employeeEntry = await driver.findElement(page.warrantyTableEntriesSelector(6)).getText();
-           const timeEntry = await driver.findElement(page.warrantyTableEntriesSelector(7)).getText();
-
-           assert.notEqual(dateEntry, '');
-           assert.equal(customerEntry, 'customer');
-           assert.equal(contactEntry, 'contact');
-           assert.equal(machineEntry, 'machine');
-           assert.equal(issueEntry, 'issue');
-           assert.equal(employeeEntry, 'employee');
-           assert.equal(timeEntry, '01:00:00');
-       })*/
     })
 })

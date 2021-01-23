@@ -3,105 +3,95 @@ const {By} = webdriver
 
 export default class Index{
     constructor(driver, url){
-        this.driver = driver
-        this.url = url
+        this.driver = driver;
+        this.url = url;
     }
 
     gotoIndex(){
-        return this.driver.navigate().to(this.url)
+        return this.driver.navigate().to(this.url);
     }
 
     getCurrentUrl(){
-        return this.driver.getCurrentUrl()
+        return this.driver.getCurrentUrl();
     }
 
     getPageTitle(){
-        return this.driver.getTitle()
+        return this.driver.getTitle();
     }
 
     contentTitleSelector(){
-        return By.css('.title')
+        return By.css('.title');
     }
 
     navigateToIndexPage(){
-        return this.driver.findElement(this.navigateToIndexPageSelector())
+        return this.driver.findElement(this.navigateToIndexPageSelector());
     }
 
     navigateToIndexPageSelector(){
-        return By.id('linkToIndexPage')
+        return By.id('linkToIndexPage');
     }
 
     buttonCreateEntrySelector(){
-        return By.css('#create-entry')
+        return By.css('#create-entry');
     }
 
     popupSelector() {
-        return By.id('popup')
+        return By.id('popup');
     }
 
     planeSelector() {
-        return By.id('plane')
+        return By.id('plane');
     }
 
     machineEntrySelector() {
-        return By.id('machine')
+        return By.id('machine');
     }
 
     customerEntrySelector() {
-        return By.id('customer')
+        return By.id('customer');
     }
 
     contactEntrySelector() {
-        return By.id('contact')
+        return By.id('contact');
     }
 
     issueEntrySelector() {
-        return By.id('issue')
+        return By.id('issue');
     }
 
     employeeEntrySelector() {
-        return By.id('employee')
+        return By.id('employee');
     }
 
     dateEntrySelector() {
-        return By.id('choose-date')
+        return By.id('choose-date');
     }
 
     calendarDaySelector(daySelector) {
-        return By.css(`.dayContainer > span:nth-child(${daySelector})`)
+        return By.css(`.dayContainer > span:nth-child(${daySelector})`);
     }
 
     timeEntrySelector() {
-        return By.id('time-spend')
+        return By.id('time-spend');
     }
 
     timeOptionSelector(optionSelector) {
-        return By.css(`#time-spend > option:nth-child(${optionSelector})`)
+        return By.css(`#time-spend > option:nth-child(${optionSelector})`);
     }
 
     buttonExitSelector() {
-        return By.id('exit')
+        return By.id('exit');
     }
 
     buttonConfirmSelector() {
-        return By.id('confirm')
+        return By.id('confirm');
     }
 
     warrantyTableSelector() {
         return By.css('.warranty-table');
     }
 
-
-    warrantyTableRowSelector(rowSelector) {
-        return By.css(`.warranty-table > tr:nth-child(${rowSelector})`)
-    }
-
     warrantyTableEntrySelector() {
         return By.css('.table-entry');
     }
-
-    warrantyTableEntriesSelector(entrySelector) {
-        return By.css(`.table-entry > td:nth-child(${entrySelector})`)
-    }
-
 }
