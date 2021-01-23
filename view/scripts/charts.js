@@ -1,17 +1,20 @@
 export default class Charts {
-    createTrend(entries) {
-        createTrend(entries)
+
+    createTrend(){
+        const defaultMonths = ["", "", "", "", "", "", "", "", "", "", "", ""];
+        const defaultData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        createTrend(defaultMonths, defaultData);
     }
 
-    updateTrend(entries) {
-        updateTrend(entries)
+    updateTrend(categories, data){
+        updateTrend(categories, data);
     }
 }
 
-const createTrend = (entries) => {
+const createTrend = (categories, data) => {
     Highcharts.chart('trend-graph', {
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: categories
         },
         yAxis: {
             title: {
@@ -20,7 +23,7 @@ const createTrend = (entries) => {
         },
         series: [{
             type: 'column',
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            data: data,
             showInLegend: false
         }],
         legend: {
@@ -49,9 +52,7 @@ const createTrend = (entries) => {
     });
 }
 
-
-const updateTrend = (entries) => {
-    Highcharts.charts[1].series[0].setData(
-        entries
-    )
+const updateTrend = (categories, data) => {
+    Highcharts.charts[0].xAxis[0].update({categories: categories});
+    Highcharts.charts[0].series[0].update({data: data});
 }

@@ -35,7 +35,7 @@ async function getDataByQuery(query, callback, queryValues) {
 
     } finally {
         if (conn) {
-            return conn.end();
+            await conn.end();
         }
     }
 }
@@ -51,7 +51,7 @@ async function changeDataByQuery(query, queryValues) {
 
     } finally {
         if (conn) {
-            return conn.end();
+            await conn.end();
         }
     }
 }

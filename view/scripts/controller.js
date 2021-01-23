@@ -15,17 +15,48 @@ export default class Controller {
 
     async loadAndRender() {
         try {
-            const warrantyEntries = await this.data.getWarrantyEntriesOfCurrentMonth();
-            this.formatAndSort(warrantyEntries);
-            this.view.renderList(warrantyEntries);
+            const warrantyEntriesRecentYear = await this.data.getWarrantyEntriesOfLastTwelveMonths();
+            let workingHoursPerMonths = this.getWorkingHoursPerMonths(warrantyEntriesRecentYear);
+            this.view.updateTrend(workingHoursPerMonths.months, workingHoursPerMonths.workingHours)
+
+            const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesOfCurrentMonth();
+            this.formatAndSort(warrantyEntriesCurrentMonth)
+            this.view.renderList(warrantyEntriesCurrentMonth);
+
         } catch (e) {
             this.view.renderError(e.message);
         }
     }
 
-    updateTrend(warrantyEntries) {
-        this.view.updateTrend(
-            (warrantyEntries.map(values => [Date.parse(values.date_), values.time_])));
+    getWorkingHoursPerMonths(entries) {
+        const date = new Date();
+        const workingHoursPerMonths = [];
+        const lastTwelveMonths = [];
+
+        for (let i = 0; i < 12; i++){
+            lastTwelveMonths.push(this.getMonthNameAndYear(date));
+
+            workingHoursPerMonths.push(entries
+                .filter(entry => new Date(entry.date_).getMonth() === date.getMonth())
+                .reduce((totalWorkingHours, entry) => {
+                    const time = entry.time_.split(":");
+                    const hours = parseInt(time[0]);
+                    const decimalMinutes = parseInt(time[1]);
+                    return totalWorkingHours+  ( hours + ( decimalMinutes/ 100));
+                }, 0));
+
+            date.setMonth(date.getMonth() - 1);
+        }
+
+        return {
+            months: lastTwelveMonths.reverse(),
+            workingHours: workingHoursPerMonths.reverse()
+        };
+    }
+
+    getMonthNameAndYear(date) {
+        const monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        return monthNames[date.getMonth()] + " " + date.getFullYear();
     }
 
     formatAndSort(warrantyEntries) {
@@ -45,5 +76,4 @@ export default class Controller {
     formatDate(date) {
         return new Date(date).toLocaleDateString().split(",")[0];
     }
-
 }
