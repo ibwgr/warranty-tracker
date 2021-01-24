@@ -36,7 +36,16 @@
         <div id="trend-graph"></div>
       </div>
       <div class="action-bar">
-        <button type="button" id="create-entry">Create Entry</button>
+        <div class="datepickerGroup">
+          <input type="text" class="fromDate" placeholder="Please select Date Time" data-input>
+          <label class="input-label">From</label>
+        </div>
+        <div class="datepickerGroup">
+          <input type="text" class="toDate" placeholder="Please select Date Time" data-input>
+          <label class="input-label">To</label>
+        </div>
+        <button type="button" class="button" id="update-table">Update Table</button>
+        <button type="button" class="button" id="create-entry">Create Entry</button>
         <div id="plane" style="display: none"></div>
         <div id="popup" style="display: none">
           <div id="top-bar">
