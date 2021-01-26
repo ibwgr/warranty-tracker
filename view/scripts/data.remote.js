@@ -13,7 +13,7 @@ export default class Data {
             })
         }).then(response => {
             if (response.ok) {
-                return response.json();
+                return Promise.resolve(response.json());
             }else{
                 return response.json().then(json => Promise.reject(json));
             }
@@ -29,7 +29,7 @@ export default class Data {
             })
         }).then(response => {
             if ( response.ok) {
-                return response.json();
+                return Promise.resolve(response.json());
             } else {
                 return response.json().then(json => Promise.reject(json));
             }
@@ -47,9 +47,9 @@ export default class Data {
             body: JSON.stringify(warrantyEntry)
         }).then(response => {
             if (response.ok){
-                return response.json()
+                return Promise.resolve(response.json());
             }else{
-                return Promise.reject(response)
+                return response.json().then(json => Promise.reject(json));
             }
         })
     }

@@ -9,7 +9,11 @@ export default class Controller {
         try {
             await this.data.addWarrantyEntry(warrantyEntry);
         } catch (e) {
-            console.log(e);
+            if ( e.msg ){
+                this.view.renderError(e.msg);
+            } else {
+                console.log(e);
+            }
         }
     }
 
@@ -24,7 +28,11 @@ export default class Controller {
             this.view.renderList(warrantyEntriesCurrentMonth);
 
         } catch (e) {
-            this.view.renderError(e.message);
+            if ( e.msg ){
+                this.view.renderError(e.msg);
+            } else {
+                console.log(e);
+            }
         }
     }
 

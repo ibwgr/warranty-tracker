@@ -9,8 +9,7 @@ const getDataForTheLast12Month = async (req, res) => {
             res.send(result);
         });
     } catch (e) {
-        console.log(e);
-        throw new Error(e.message);
+        res.status(500).json({"msg": "connection refused"});
     }
 }
 
@@ -23,7 +22,7 @@ const getDataForTheCurrentMonth = async (req, res) => {
             res.send(result);
         });
     } catch (e) {
-        res.status(500).json({"message": "connection to the database refused"});
+        res.status(500).json({"msg": "connection refused"});
     }
 }
 
