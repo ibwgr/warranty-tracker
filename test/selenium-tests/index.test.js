@@ -18,10 +18,6 @@ describe('Index', () => {
         await driver.quit()
     })
 
-    xit('should show content title', async () => {
-        await driver.wait(until.elementLocated(page.contentTitleSelector()))
-    })
-
     describe('page title', () => {
 
         it('should equal application title', async () => {
@@ -120,6 +116,7 @@ describe('Index', () => {
             await driver.wait(until.elementLocated(page.timeEntrySelector()));
 
             await driver.findElement(page.dateEntrySelector()).click();
+            await driver.wait(until.elementLocated(page.calendarDaySelector()));
             await driver.findElement(page.calendarDaySelector(1)).click();
             const dateEntry = await driver.findElement(page.dateEntrySelector()).getAttribute('value');
 
@@ -145,8 +142,10 @@ describe('Index', () => {
         })
 
         it('entry data should be taken over to table after confirmation', async () => {
-            await driver.wait(until.elementLocated(page.warrantyTableSelector()));
-            const amountOfWarrantyEntriesBeforeEntry = driver.findElements(page.warrantyTableEntrySelector());
+            await driver.wait(until.elementLocated(page.warrantyTableEntrySelector()));
+
+            let amountOfWarrantyEntriesBeforeEntry = 0;
+            await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesBeforeEntry = elements.length);
 
             await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
             await driver.findElement(page.buttonCreateEntrySelector()).click();
@@ -164,9 +163,43 @@ describe('Index', () => {
             await driver.findElement(page.timeOptionSelector(5)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
 
-            const amountOfWarrantyEntriesAfterEntry = driver.findElements(page.warrantyTableEntrySelector());
+            await driver.wait(until.elementLocated(page.warrantyTableEntrySelector()));
+            let amountOfWarrantyEntriesAfterEntry = 0;
 
-            assert.notEqual(amountOfWarrantyEntriesBeforeEntry, amountOfWarrantyEntriesAfterEntry);
+            await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesAfterEntry = elements.length);
+            assert.notEqual(amountOfWarrantyEntriesAfterEntry, amountOfWarrantyEntriesBeforeEntry + 1);
+        })
+    })
+
+    describe('datepicker', () => {
+
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+
+        it('should open datepicker for from date entry with current month', async () => {
+            await driver.wait(until.elementLocated(page.fromDateEntrySelector()));
+
+            const date = new Date();
+
+            await driver.findElement(page.fromDateEntrySelector()).click();
+            driver.wait(until.elementLocated(page.datepickerMonthSelector()));
+            const datepickerMonth = await driver.findElement(page.datepickerMonthSelector()).getAttribute("innerHTML");
+
+            await assert.equal(datepickerMonth.toString().trim(), monthNames[date.getMonth()]);
+        })
+
+        it('should open datepicker for to date entry with current month', async () => {
+            await driver.wait(until.elementLocated(page.toDateEntrySelector()));
+
+            const date = new Date();
+
+            await driver.findElement(page.toDateEntrySelector()).click();
+            driver.wait(until.elementLocated(page.datepickerMonthSelector()));
+            const datepickerMonth = await driver.findElement(page.datepickerMonthSelector()).getAttribute("innerHTML");
+
+            await assert.equal(datepickerMonth.toString().trim(), monthNames[date.getMonth()]);
         })
     })
 })

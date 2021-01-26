@@ -4,9 +4,34 @@ export default class View {
         this.popup = popup;
         this.graph = graph;
         this.graph.createTrend();
+        this.configureDatepicker(actionBarRootSelector);
         this.table = document.querySelector(warrantyTableRootSelector + ' .warranty-table');
         this.tableTitles = document.querySelector(warrantyTableRootSelector + ' thead');
         this.tableTitles.appendChild(this.renderColumnTitles());
+    }
+
+    configureDatepicker(rootSelector){
+        let datePickerFrom = flatpickr(rootSelector + " #fromDate", {
+            enableTime: true,
+            time_24hr: true,
+            "maxDate": new Date().fp_incr(0),
+            dateFormat: "d.m.Y",
+            onClose: (selectedDates, dateStr, instance) => {
+                datePickerTo.set('minDate', dateStr)
+                this.dateFrom = selectedDates[0]
+            }
+        });
+
+        let datePickerTo = flatpickr(rootSelector + " #toDate", {
+            enableTime: true,
+            "maxDate": new Date().fp_incr(0),
+            time_24hr: true,
+            dateFormat: "d.m.Y",
+            onClose: (selectedDates, dateStr, instance) => {
+                datePickerFrom.set('maxDate', dateStr)
+                this.dateTo = selectedDates[0]
+            }
+        });
     }
 
     updateTrend(months, workingHoursPerMonths) {
