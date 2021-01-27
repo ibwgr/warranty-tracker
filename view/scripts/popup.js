@@ -63,7 +63,7 @@ export default class Popup {
     }
 
     validateEntryData() {
-        return (this.machine.value !== '' && this.employee.value !== '' && this.date !== '' && this.time.value !== '')
+        return ([this.machine.value, this.employee.value, this.date, this.time.value].includes(''));
     }
 
     addOneHourToUTCTimezone(){

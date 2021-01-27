@@ -15,8 +15,8 @@ window.addEventListener('load', () => {
 })
 
 popup.confirmButton.addEventListener('click', () => {
-    const status = popup.validateEntryData();
-    if (!status) {
+    const insufficientEntry = popup.validateEntryData();
+    if (insufficientEntry) {
         alert('At least machine, employee, date and time inputs must be made');
         return;
     }

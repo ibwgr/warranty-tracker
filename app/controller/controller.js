@@ -63,6 +63,7 @@ const deleteWarrantyEntry = async (req, res) => {
     try {
         const query = `DELETE FROM warranty WHERE id = ?`;
         const queryValue = req.body.id;
+        console.log(queryValue);
 
         await database.changeDataByQuery(query, queryValue);
         res.end();

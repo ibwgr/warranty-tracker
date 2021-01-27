@@ -1,13 +1,25 @@
+import { eventHandler, event_delete_entry } from './event.js'
+
 export default class Controller {
 
     constructor(view, data) {
         this.view = view;
         this.data = data;
+        this.deleteWarrantyEntry = this.deleteWarrantyEntry.bind(this);
+        eventHandler.addEventListener(event_delete_entry, this.deleteWarrantyEntry);
     }
 
     async postWarrantyEntry(warrantyEntry) {
         try {
             await this.data.addWarrantyEntry(warrantyEntry);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async deleteWarrantyEntry(event) {
+        try {
+            await this.data.deleteWarrantyEntry(event.detail);
         } catch (e) {
             console.log(e);
         }
