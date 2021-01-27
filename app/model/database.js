@@ -27,6 +27,9 @@ async function getDataByQuery(query, callback, queryValues) {
         }
         conn = await pool.getConnection();
         const data = await conn.query(query, queryValues);
+        if (data.length === 0 || data.length === undefined) {
+            return callback(data);
+        }
         data.forEach(addOneHourToUTCTimezone);
         return callback(data);
 
@@ -57,7 +60,9 @@ async function changeDataByQuery(query, queryValues) {
 }
 
 function addOneHourToUTCTimezone(warrantyEntry){
-    warrantyEntry.date_.setHours(warrantyEntry.date_.getHours() + 1);
+    if ( warrantyEntry.date_ !== undefined ) {
+        warrantyEntry.date_.setHours(warrantyEntry.date_.getHours() + 1);
+    }
 }
 
 module.exports = {

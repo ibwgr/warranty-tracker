@@ -8,9 +8,10 @@ export default class View {
         this.table = document.querySelector(warrantyTableRootSelector + ' .warranty-table');
         this.tableTitles = document.querySelector(warrantyTableRootSelector + ' thead');
         this.tableTitles.appendChild(this.renderColumnTitles());
+        this.addRefreshEventListener(document.querySelector("#update-table"));
     }
 
-    configureDatepicker(rootSelector){
+    configureDatepicker(rootSelector) {
         let datePickerFrom = flatpickr(rootSelector + " #fromDate", {
             enableTime: true,
             time_24hr: true,
@@ -32,6 +33,19 @@ export default class View {
                 this.dateTo = selectedDates[0]
             }
         });
+    }
+
+    addRefreshEventListener(button) {
+        button.addEventListener('click', async (evt) => {
+            const result = await this.onRefreshHandler(this.dateFrom, this.dateTo);
+            if (result.message !== "") {
+                alert(result.message);
+            }
+        })
+    }
+
+    registerRefreshHandler(onRefreshHandler) {
+        this.onRefreshHandler = onRefreshHandler;
     }
 
     updateTrend(months, workingHoursPerMonths) {

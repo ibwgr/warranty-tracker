@@ -79,7 +79,7 @@ describe('Index', () => {
             await assert.equal(planeDisplay, 'none');
         })
 
-       it('entry data on the left part should be taken over', async () => {
+        it('entry data on the left part should be taken over', async () => {
            await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
            await driver.findElement(page.buttonCreateEntrySelector()).click();
 
@@ -112,11 +112,10 @@ describe('Index', () => {
            await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
            await driver.findElement(page.buttonCreateEntrySelector()).click();
 
-            await driver.wait(until.elementLocated(page.dateEntrySelector()));
-            await driver.wait(until.elementLocated(page.timeEntrySelector()));
+           await driver.wait(until.elementLocated(page.dateEntrySelector()));
+           await driver.wait(until.elementLocated(page.timeEntrySelector()));
 
             await driver.findElement(page.dateEntrySelector()).click();
-            await driver.wait(until.elementLocated(page.calendarDaySelector()));
             await driver.findElement(page.calendarDaySelector(1)).click();
             const dateEntry = await driver.findElement(page.dateEntrySelector()).getAttribute('value');
 

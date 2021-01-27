@@ -3,6 +3,44 @@ export default class Controller {
     constructor(view, data) {
         this.view = view;
         this.data = data;
+
+        view.registerRefreshHandler((fromDate, toDate) => {
+            return this.getValuesByFromAndToDate(fromDate,toDate);
+        })
+    }
+
+    async getValuesByFromAndToDate(fromDate, toDate) {
+        const isValidDateTime = this.validateDateAndTime(fromDate, toDate);
+        if (isValidDateTime) {
+            fromDate.setDate(fromDate.getDate() - 1);
+            toDate.setDate(toDate.getDate() + 1);
+            const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesByDateSelection(fromDate.toISOString(),toDate.toISOString());
+
+            if (warrantyEntriesCurrentMonth.length === 0 || warrantyEntriesCurrentMonth.length === undefined) {
+                return {
+                    message: "No entries found"
+                }
+            } else {
+                this.formatAndSort(warrantyEntriesCurrentMonth);
+                this.view.renderList(warrantyEntriesCurrentMonth);
+                return {
+                    message: ""
+                }
+            }
+        } else {
+            return {
+             message: "invalid date selection"
+            }
+        }
+    }
+
+    validateDateAndTime(fromDate, toDate){
+        if (    (fromDate === undefined)
+            ||  !(fromDate instanceof Date)){
+            return false;
+
+        } else return !((toDate === undefined)
+            || !(toDate instanceof Date));
     }
 
     async postWarrantyEntry(warrantyEntry) {
