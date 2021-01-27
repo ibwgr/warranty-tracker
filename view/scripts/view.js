@@ -20,7 +20,7 @@ export default class View {
             this.table.removeChild(this.table.firstChild);
         }
         warrantyEntries.map(entry => this.table.appendChild(this.renderWarrantyEntry(entry)));
-        this.addFunctionalityToDeleteButtons();
+        this.addEventListenerToDeleteButtons();
     }
 
     renderWarrantyEntry(warrantyEntry) {
@@ -32,7 +32,7 @@ export default class View {
         const issue = this.renderEntry(warrantyEntry.issue);
         const employee = this.renderEntry(warrantyEntry.employee);
         const spendTime = this.renderEntry(warrantyEntry.time_);
-        const deleteEntry = this.renderDeleteButton();
+        const deleteEntry = this.renderEntry('<button id="delete-entry">&#215;</button>');
 
         entry.innerHTML = date + customer + contact + machine + issue + employee + spendTime + deleteEntry;
         entry.className = "table-entry";
@@ -48,7 +48,7 @@ export default class View {
         const issueTitle = this.renderTitle("Issue");
         const employeeTitle = this.renderTitle("Employee");
         const timeTitle = this.renderTitle("Time Spent");
-        const deleteTitle = this.renderDeleteTitle();
+        const deleteTitle = this.renderTitle("");
 
         titles.innerHTML = dateTitle + customerTitle + contactTitle + machineTitle + issueTitle + employeeTitle + timeTitle + deleteTitle;
         titles.className = "column-titles";
@@ -63,15 +63,7 @@ export default class View {
         return `<td>${entry}</td>`;
     }
 
-    renderDeleteTitle() {
-        return `<th></th>`
-    }
-
-    renderDeleteButton() {
-        return `<td><button id="delete-entry">&#215;</button></td>`
-    }
-
-    addFunctionalityToDeleteButtons() {
+    addEventListenerToDeleteButtons() {
         document.querySelectorAll('#delete-entry').forEach(button => {
             button.addEventListener('click', () => {
                 eventHandler.fireEvent(event_delete_entry, { id: '1' });

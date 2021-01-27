@@ -46,7 +46,6 @@ export default class Data {
             },
             body: JSON.stringify(warrantyEntry)
         }).then(response => {
-            return response.text().then(console.log)
             if (response.ok){
                 return response.json();
             }else{
@@ -64,7 +63,7 @@ export default class Data {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(warrantyEntryID)
-        })
+        });
     }
 
 }

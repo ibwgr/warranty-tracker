@@ -1,3 +1,5 @@
+import { eventHandler, event_create_entry } from './event.js'
+
 export default class Popup {
 
     constructor() {
@@ -31,6 +33,16 @@ export default class Popup {
         this.exitButton.addEventListener('click', () => {
             this.displayPopupAndPlane();
         });
+
+        this.confirmButton.addEventListener('click', () => {
+            const insufficientEntry = this.validateEntryData();
+            if (insufficientEntry) {
+                alert('At least machine, employee, date and time inputs must be made');
+                return;
+            }
+            eventHandler.fireEvent(event_create_entry, this.getWarrantyEntry());
+            this.displayPopupAndPlane();
+        })
 
         this.createTimeOptions();
     }

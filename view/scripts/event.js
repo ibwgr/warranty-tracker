@@ -41,6 +41,8 @@ class EventHandler {
 }
 
 export const eventHandler = new EventHandler();
+export const event_create_entry = 'popup:createEntry';
 export const event_delete_entry = 'view:deleteEntry';
+
 
 
