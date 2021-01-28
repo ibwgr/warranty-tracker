@@ -3,7 +3,7 @@ let config = {};
 if (process.env.CI === "true"){
     config = {
         user: "root",
-        password:"travis",
+        password:"",
         port: 3306,
         database: "warrantydb",
         connectionLimit: 5

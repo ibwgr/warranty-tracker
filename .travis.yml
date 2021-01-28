@@ -9,11 +9,12 @@ addons:
   chrome: stable
   mariadb: '10.5'
 
-install: mysql -e "SET Password=PASSWORD('travis')"
+install:
+  -   # setup database
+  - mysql -e "SET Password=PASSWORD('travis')"
+  - sudo mysql -u root -p travis < warrantyDB.sql
 
 before_script:
-  # setup database
-  - sudo mysql -u root < warrantyDB.sql
   # build express application and serve it
   - npm install & npm run start &
   # give background tasks some time to start up
