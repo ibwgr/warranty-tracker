@@ -11,8 +11,7 @@ addons:
 
 install:
   -   # setup database
-  - mysql -e "SET Password=PASSWORD('travis')"
-  - sudo mysql -u root -p travis < warrantyDB.sql
+  - sudo mysql -u root < warrantyDB.sql
 
 before_script:
   # build express application and serve it

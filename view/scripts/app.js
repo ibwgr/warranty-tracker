@@ -14,13 +14,13 @@ window.addEventListener('load', () => {
     controller.loadAndRender();
 })
 
-popup.confirmButton.addEventListener('click', () => {
+popup.confirmButton.addEventListener('click', async () => {
     const status = popup.validateEntryData();
     if (!status) {
         alert('At least machine, employee, date and time inputs must be made');
         return;
     }
-    controller.postWarrantyEntry(popup.getWarrantyEntry());
-    controller.loadAndRender();
+    await controller.postWarrantyEntry(popup.getWarrantyEntry());
+    await controller.loadAndRender();
     popup.displayPopupAndPlane();
 })
