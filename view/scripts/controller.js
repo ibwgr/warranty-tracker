@@ -24,6 +24,7 @@ export default class Controller {
     async deleteWarrantyEntry(warrantyEntryID) {
         try {
             await this.data.deleteWarrantyEntry(warrantyEntryID.detail);
+            await this.loadAndRender();
         } catch (e) {
             console.log(e);
         }

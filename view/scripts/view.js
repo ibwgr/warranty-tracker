@@ -32,7 +32,7 @@ export default class View {
         const issue = this.renderEntry(warrantyEntry.issue);
         const employee = this.renderEntry(warrantyEntry.employee);
         const spendTime = this.renderEntry(warrantyEntry.time_);
-        const deleteEntry = this.renderEntry('<button id="delete-entry">&#215;</button>');
+        const deleteEntry = this.renderEntry(`<button id=${warrantyEntry.id} class="delete-entry">&#215;</button>`);
 
         entry.innerHTML = date + customer + contact + machine + issue + employee + spendTime + deleteEntry;
         entry.className = "table-entry";
@@ -64,9 +64,9 @@ export default class View {
     }
 
     addEventListenerToDeleteButtons() {
-        document.querySelectorAll('#delete-entry').forEach(button => {
+        document.querySelectorAll('.delete-entry').forEach(button => {
             button.addEventListener('click', () => {
-                eventHandler.fireEvent(event_delete_entry, { id: '1' });
+                eventHandler.fireEvent(event_delete_entry, { id: button.id });
             });
         });
     }
