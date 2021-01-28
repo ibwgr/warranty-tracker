@@ -8,6 +8,9 @@ addons:
       - dpkg
   chrome: stable
   mariadb: '10.5'
+
+install: mysql -e "SET Password=PASSWORD('travis')"
+
 before_script:
   # setup database
   - sudo mysql -u root < warrantyDB.sql
