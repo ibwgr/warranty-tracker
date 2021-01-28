@@ -18,6 +18,6 @@ INSERT INTO warranty (date_, machine, customer, contact, issue, employee, time_)
     ('2020-04-12', 'Master250', 'CCL USA', 'M. Muster', 'Download Update', 'S. Hutter', '10:00:00'),
     ('2020-05-12', 'Master250', 'CCL USA', 'M. Muster', 'Download Update', 'S. Hutter', '20:00:00'),
     ('2020-06-12', 'Master250', 'CCL USA', 'M. Muster', 'Download Update', 'S. Hutter', '30:00:00'),
-    ('2020-07-12', 'Master250', 'CCL USA', 'M. Muster', 'Download Update', 'S. Hutter', '40:00:00');
+    ('2020-07-12', 'Master250', 'CCL USA', 'M. Muster', 'Download Update', 'S. Hutter', '40:00:00'),
     ('2021-01-12', 'Master250', 'CCL USA', 'M. Muster', 'Download Update', 'S. Hutter', '40:00:00');
 
