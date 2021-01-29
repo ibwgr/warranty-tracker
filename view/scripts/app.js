@@ -13,14 +13,3 @@ const controller = new Controller(view, data)
 window.addEventListener('load', () => {
     controller.loadAndRender();
 })
-
-popup.confirmButton.addEventListener('click', () => {
-    const status = popup.validateEntryData();
-    if (!status) {
-        alert('At least machine, employee, date and time inputs must be made');
-        return;
-    }
-    controller.postWarrantyEntry(popup.getWarrantyEntry());
-    controller.loadAndRender();
-    popup.displayPopupAndPlane();
-})

@@ -201,4 +201,37 @@ describe('Index', () => {
             await assert.equal(datepickerMonth.toString().trim(), monthNames[date.getMonth()]);
         })
     })
+
+/*    describe('table of current month entries', () => {
+
+        it('should delete entry', async () => {
+            await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
+            await driver.findElement(page.buttonCreateEntrySelector()).click();
+
+            await driver.wait(until.elementLocated(page.machineEntrySelector()));
+            await driver.wait(until.elementLocated(page.employeeEntrySelector()));
+            await driver.wait(until.elementLocated(page.dateEntrySelector()));
+            await driver.wait(until.elementLocated(page.timeEntrySelector()));
+            await driver.wait(until.elementLocated(page.buttonConfirmSelector()));
+
+            await driver.findElement(page.machineEntrySelector()).sendKeys('machine');
+            await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
+            await driver.findElement(page.dateEntrySelector()).click();
+            await driver.findElement(page.calendarDaySelector(10)).click();
+            await driver.findElement(page.timeOptionSelector(5)).click();
+            await driver.findElement(page.buttonConfirmSelector()).click();
+
+            let amountOfWarrantyEntriesBeforeDeletion = 0;
+            await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesBeforeDeletion = elements.length);
+
+            // Todo: 1. Entry werden nicht übernommen, 2. Entrys lesen nach delete funktioniert nur wenn genügend Zeit vorhanden ist
+            await driver.wait(until.elementLocated(page.warrantyTableDeleteButtonSelector()));
+            await driver.findElement(page.warrantyTableDeleteButtonSelector()).click();
+
+            let amountOfWarrantyEntriesAfterDeletion = 0;
+            await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesAfterDeletion = elements.length);
+
+            await assert.equal(amountOfWarrantyEntriesBeforeDeletion, amountOfWarrantyEntriesBeforeDeletion);
+        });
+    })*/
 })
