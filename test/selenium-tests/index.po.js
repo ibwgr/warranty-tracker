@@ -102,4 +102,8 @@ export default class Index{
     datepickerMonthSelector() {
         return By.css('span.cur-month');
     }
+        
+    warrantyTableDeleteButtonSelector() {
+        return By.css('.delete-entry');
+    }
 }

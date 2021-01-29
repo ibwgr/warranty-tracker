@@ -1,3 +1,5 @@
+import { eventHandler, event_create_entry, event_delete_entry } from './event.js'
+
 export default class Controller {
 
     constructor(view, data) {
@@ -7,6 +9,11 @@ export default class Controller {
         view.registerRefreshHandler((fromDate, toDate) => {
             return this.getValuesByFromAndToDate(fromDate,toDate);
         })
+
+        this.postWarrantyEntry = this.postWarrantyEntry.bind(this);
+        this.deleteWarrantyEntry = this.deleteWarrantyEntry.bind(this);
+        eventHandler.addEventListener(event_create_entry, this.postWarrantyEntry);
+        eventHandler.addEventListener(event_delete_entry, this.deleteWarrantyEntry);
     }
 
     async getValuesByFromAndToDate(fromDate, toDate) {
@@ -45,7 +52,21 @@ export default class Controller {
 
     async postWarrantyEntry(warrantyEntry) {
         try {
-            await this.data.addWarrantyEntry(warrantyEntry);
+            await this.data.addWarrantyEntry(warrantyEntry.detail);
+            await this.loadAndRender();
+        } catch (e) {
+            if ( e.msg ){
+                this.view.renderError(e.msg);
+            } else {
+                console.log(e);
+            }
+        }
+    }
+
+    async deleteWarrantyEntry(warrantyEntryID) {
+        try {
+            await this.data.deleteWarrantyEntry(warrantyEntryID.detail);
+            await this.loadAndRender();
         } catch (e) {
             if ( e.msg ){
                 this.view.renderError(e.msg);

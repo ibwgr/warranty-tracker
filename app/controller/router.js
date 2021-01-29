@@ -13,6 +13,4 @@ router.get('/warranty/date-selection', controller.getDataAccordingToDateSelectio
 router.post('/warranty/add-entry', controller.addWarrantyEntry);
 router.post('/warranty/delete-entry', controller.deleteWarrantyEntry);
 
-
-
 module.exports = router;

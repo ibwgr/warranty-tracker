@@ -1,3 +1,5 @@
+import { eventHandler, event_create_entry } from './event.js'
+
 export default class Popup {
 
     constructor() {
@@ -32,6 +34,16 @@ export default class Popup {
             this.displayPopupAndPlane();
         });
 
+        this.confirmButton.addEventListener('click', () => {
+            const insufficientEntry = this.validateEntryData();
+            if (insufficientEntry) {
+                alert('At least machine, employee, date and time inputs must be made');
+                return;
+            }
+            eventHandler.fireEvent(event_create_entry, this.getWarrantyEntry());
+            this.displayPopupAndPlane();
+        })
+
         this.createTimeOptions();
     }
 
@@ -63,7 +75,7 @@ export default class Popup {
     }
 
     validateEntryData() {
-        return (this.machine.value !== '' && this.employee.value !== '' && this.date !== '' && this.time.value !== '')
+        return ([this.machine.value, this.employee.value, this.date.value, this.time.value].includes(''));
     }
 
     addOneHourToUTCTimezone(){
