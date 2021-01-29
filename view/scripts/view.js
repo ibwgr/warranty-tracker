@@ -1,3 +1,5 @@
+import { eventHandler, event_delete_entry } from './event.js'
+
 export default class View {
 
     constructor(actionBarRootSelector, warrantyTableRootSelector, graph, popup) {
@@ -18,6 +20,7 @@ export default class View {
             this.table.removeChild(this.table.firstChild);
         }
         warrantyEntries.map(entry => this.table.appendChild(this.renderWarrantyEntry(entry)));
+        this.addEventListenerToDeleteButtons();
     }
 
     renderWarrantyEntry(warrantyEntry) {
@@ -29,8 +32,9 @@ export default class View {
         const issue = this.renderEntry(warrantyEntry.issue);
         const employee = this.renderEntry(warrantyEntry.employee);
         const spendTime = this.renderEntry(warrantyEntry.time_);
+        const deleteEntry = this.renderEntry(`<button id=${warrantyEntry.id} class="delete-entry">&#215;</button>`);
 
-        entry.innerHTML = date + customer + contact + machine + issue + employee + spendTime;
+        entry.innerHTML = date + customer + contact + machine + issue + employee + spendTime + deleteEntry;
         entry.className = "table-entry";
         return entry;
     }
@@ -44,8 +48,9 @@ export default class View {
         const issueTitle = this.renderTitle("Issue");
         const employeeTitle = this.renderTitle("Employee");
         const timeTitle = this.renderTitle("Time Spent");
+        const deleteTitle = this.renderTitle("");
 
-        titles.innerHTML = dateTitle + customerTitle + contactTitle + machineTitle + issueTitle + employeeTitle + timeTitle;
+        titles.innerHTML = dateTitle + customerTitle + contactTitle + machineTitle + issueTitle + employeeTitle + timeTitle + deleteTitle;
         titles.className = "column-titles";
         return titles;
     }
@@ -58,7 +63,16 @@ export default class View {
         return `<td>${entry}</td>`;
     }
 
-    renderError(errorMessage){
+    addEventListenerToDeleteButtons() {
+        document.querySelectorAll('.delete-entry').forEach(button => {
+            button.addEventListener('click', () => {
+                eventHandler.fireEvent(event_delete_entry, { id: button.id });
+            });
+        });
+    }
+
+    renderError(errorMessage) {
         window.alert(errorMessage);
     }
+
 }

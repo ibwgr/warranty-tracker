@@ -47,11 +47,23 @@ export default class Data {
             body: JSON.stringify(warrantyEntry)
         }).then(response => {
             if (response.ok){
-                return response.json()
+                return response.json();
             }else{
-                return Promise.reject(response)
+                return Promise.reject(response);
             }
-        })
+        });
+    }
+
+    async deleteWarrantyEntry(warrantyEntryID) {
+        let url = new URL(this.serverUrl + "/warranty/delete-entry");
+
+        return fetch(url.toString(),  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(warrantyEntryID)
+        });
     }
 
 }

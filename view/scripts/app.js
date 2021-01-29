@@ -10,17 +10,7 @@ const view = new View(".action-bar",".table-wrapper", charts, popup)
 const data = new Data("http://localhost:3000")
 const controller = new Controller(view, data)
 
+//Todo - We could put this also in the controller
 window.addEventListener('load', () => {
     controller.loadAndRender();
-})
-
-popup.confirmButton.addEventListener('click', () => {
-    const status = popup.validateEntryData();
-    if (!status) {
-        alert('At least machine, employee, date and time inputs must be made');
-        return;
-    }
-    controller.postWarrantyEntry(popup.getWarrantyEntry());
-    controller.loadAndRender();
-    popup.displayPopupAndPlane();
 })

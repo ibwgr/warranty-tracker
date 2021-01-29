@@ -94,4 +94,8 @@ export default class Index{
     warrantyTableEntrySelector() {
         return By.css('.table-entry');
     }
+
+    warrantyTableDeleteButtonSelector() {
+        return By.css('.delete-entry');
+    }
 }
