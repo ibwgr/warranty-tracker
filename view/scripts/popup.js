@@ -53,11 +53,15 @@ export default class Popup {
     }
 
     createTimeOptions() {
-        for (let i = 0; i <= 12; i += 0.25) {
-            const option = document.createElement('option');
-            option.textContent = `${i.toFixed(2)}h`;
-            option.value = i.toFixed(2);
-            this.time.appendChild(option);
+        for (let hour = 0; hour <= 12; hour += 1) {
+            for (let minute = 0; minute <= 45; minute += 15) {
+                if (!(hour === 12 && minute >= 15)) {
+                    const option = document.createElement('option');
+                    minute !== 0 ? option.textContent = `${hour}h ${minute}min` : option.textContent = `${hour}h ${minute}0min`;
+                    minute !== 0 ? option.value = `${hour}:${minute}` : option.value = `${hour}:${minute}0`;
+                    this.time.appendChild(option);
+                }
+            }
         }
     }
 
@@ -70,7 +74,7 @@ export default class Popup {
             contact: this.contact.value,
             issue: this.issue.value,
             employee: this.employee.value,
-            time_: this.time.value.replace('.', ':')
+            time_: this.time.value
         };
     }
 
