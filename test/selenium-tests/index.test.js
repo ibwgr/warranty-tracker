@@ -159,14 +159,16 @@ describe('Index', () => {
             await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
             await driver.findElement(page.dateEntrySelector()).click();
             await driver.findElement(page.calendarDaySelector(10)).click();
-            await driver.findElement(page.timeOptionSelector(5)).click();
+            await driver.findElement(page.timeOptionSelector(4)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
 
-            await driver.wait(until.elementLocated(page.warrantyTableEntrySelector()));
+            // wait for page to reload with added entry
+            await sleep(500);
+
             let amountOfWarrantyEntriesAfterEntry = 0;
 
             await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesAfterEntry = elements.length);
-            assert.notEqual(amountOfWarrantyEntriesAfterEntry, amountOfWarrantyEntriesBeforeEntry + 1);
+            assert.equal(amountOfWarrantyEntriesAfterEntry, amountOfWarrantyEntriesBeforeEntry + 1);
         })
     })
 
@@ -202,7 +204,7 @@ describe('Index', () => {
         })
     })
 
-/*    describe('table of current month entries', () => {
+    describe('table of current month entries', () => {
 
         it('should delete entry', async () => {
             await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
@@ -218,20 +220,34 @@ describe('Index', () => {
             await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
             await driver.findElement(page.dateEntrySelector()).click();
             await driver.findElement(page.calendarDaySelector(10)).click();
-            await driver.findElement(page.timeOptionSelector(5)).click();
+            await driver.findElement(page.timeOptionSelector(4)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
+
+            // wait for page to reload with added entry
+            await sleep(500);
 
             let amountOfWarrantyEntriesBeforeDeletion = 0;
             await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesBeforeDeletion = elements.length);
 
-            // Todo: 1. Entry werden nicht übernommen, 2. Entrys lesen nach delete funktioniert nur wenn genügend Zeit vorhanden ist
             await driver.wait(until.elementLocated(page.warrantyTableDeleteButtonSelector()));
             await driver.findElement(page.warrantyTableDeleteButtonSelector()).click();
+
+            // wait for page to reload without deleted entry
+            await sleep(500);
 
             let amountOfWarrantyEntriesAfterDeletion = 0;
             await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesAfterDeletion = elements.length);
 
-            await assert.equal(amountOfWarrantyEntriesBeforeDeletion, amountOfWarrantyEntriesBeforeDeletion);
+            await assert.equal(amountOfWarrantyEntriesAfterDeletion, ( amountOfWarrantyEntriesBeforeDeletion - 1));
         });
-    })*/
+    })
 })
+
+
+const sleep = timeout => {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, timeout);
+    });
+};

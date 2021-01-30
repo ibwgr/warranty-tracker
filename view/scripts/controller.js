@@ -97,6 +97,12 @@ export default class Controller {
 
     getWorkingHoursPerMonths(entries) {
         const date = new Date();
+        /*
+        set day of the date to the middle of the month
+        - this ensures to have a valid day for every month
+        - date is only used to evaluate the names of the last twelve months
+         */
+        date.setDate(15);
         const workingHoursPerMonths = [];
         const lastTwelveMonths = [];
 
@@ -111,7 +117,6 @@ export default class Controller {
                     const decimalMinutes = parseInt(time[1]);
                     return totalWorkingHours+  ( hours + ( decimalMinutes/ 100));
                 }, 0));
-
             date.setMonth(date.getMonth() - 1);
         }
 
