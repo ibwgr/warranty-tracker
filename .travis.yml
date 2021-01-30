@@ -8,12 +8,13 @@ addons:
       - dpkg
   chrome: stable
   mariadb: '10.5'
+
 before_script:
-  # setup database
-  - sudo mysql -u root < warrantyDB.sql
+  - # setup database
+    - sudo mysql -u root < warrantyDB.sql
   # build express application and serve it
   - npm install & npm run start &
   # give background tasks some time to start up
-  - sleep 8
+  - sleep 10
   # travis now automatically runs `npm run test`
 

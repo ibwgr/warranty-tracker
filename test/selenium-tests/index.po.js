@@ -87,14 +87,22 @@ export default class Index{
         return By.id('confirm');
     }
 
-    warrantyTableSelector() {
-        return By.css('.warranty-table');
-    }
-
     warrantyTableEntrySelector() {
         return By.css('.table-entry');
     }
 
+    fromDateEntrySelector() {
+        return By.id('fromDate');
+    }
+
+    toDateEntrySelector() {
+        return By.id('toDate');
+    }
+
+    datepickerMonthSelector() {
+        return By.css('span.cur-month');
+    }
+        
     warrantyTableDeleteButtonSelector() {
         return By.css('.delete-entry');
     }

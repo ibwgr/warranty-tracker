@@ -13,7 +13,7 @@ export default class Data {
             })
         }).then(response => {
             if (response.ok) {
-                return response.json();
+                return Promise.resolve(response.json());
             }else{
                 return response.json().then(json => Promise.reject(json));
             }
@@ -29,7 +29,27 @@ export default class Data {
             })
         }).then(response => {
             if ( response.ok) {
-                return response.json();
+                return Promise.resolve(response.json());
+            } else {
+                return response.json().then(json => Promise.reject(json));
+            }
+        });
+    }
+
+    getWarrantyEntriesByDateSelection(fromDate, toDate) {
+        let url = new URL(this.serverUrl + "/warranty/date-selection");
+
+        const params = {from:fromDate, to:toDate};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+        return fetch(url.toString(), {
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }),
+        }).then(response => {
+            if ( response.ok) {
+                return Promise.resolve(response.json());
             } else {
                 return response.json().then(json => Promise.reject(json));
             }
@@ -47,9 +67,9 @@ export default class Data {
             body: JSON.stringify(warrantyEntry)
         }).then(response => {
             if (response.ok){
-                return response.json();
+                return Promise.resolve(response.json());
             }else{
-                return Promise.reject(response);
+                return response.json().then(json => Promise.reject(json));
             }
         });
     }

@@ -10,7 +10,6 @@ const view = new View(".action-bar",".table-wrapper", charts, popup)
 const data = new Data("http://localhost:3000")
 const controller = new Controller(view, data)
 
-//Todo - We could put this also in the controller
 window.addEventListener('load', () => {
     controller.loadAndRender();
 })

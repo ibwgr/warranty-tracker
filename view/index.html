@@ -36,7 +36,16 @@
         <div id="trend-graph"></div>
       </div>
       <div class="action-bar">
-        <button type="button" id="create-entry">Create Entry</button>
+        <div class="datepickerGroup">
+          <input type="text" id="fromDate" placeholder="Please select Date Time" data-input>
+          <label class="input-label">From</label>
+        </div>
+        <div class="datepickerGroup">
+          <input type="text" id="toDate" placeholder="Please select Date Time" data-input>
+          <label class="input-label">To</label>
+        </div>
+        <button type="button" class="button" id="update-table">Update Table</button>
+        <button type="button" class="button" id="create-entry">Create Entry</button>
         <div id="plane" style="display: none"></div>
         <div id="popup" style="display: none">
           <div id="top-bar">
@@ -62,8 +71,6 @@
             <button id="confirm">Confirm</button>
           </div>
         </div>
-        <button type="button" id="testbutton-get">get</button>
-        <button type="button" id="testbutton-post">post</button>
       </div>
       <div class="table-wrapper">
         <div class="table">
@@ -78,7 +85,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
-  <script src="view/test.js"></script>
   <script type="module" src="view/scripts/app.js"></script>
 </body>
 

@@ -35,7 +35,6 @@ li a:hover {
   padding:0 16px;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px 1fr 50px 1.5fr;
   gap: 10px 0;
   grid-template-areas:
     "title"
@@ -55,6 +54,49 @@ li a:hover {
 
 .action-bar {
   grid-area: action-bar;
+  width: 100%;
+  display: flex;
+}
+
+.action-bar .button {
+  align-self: flex-end;
+  margin-bottom: 8px;
+  margin-left: 8px;
+  transition: all 0.3s ease;
+  padding: 10px 18px;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+.button:hover {
+  background-color: #e7e7e7;
+}
+
+#create-entry {
+  margin-left: auto;
+}
+
+#create-entry:hover {
+  background-color: #e7e7e7;
+}
+
+.datepickerGroup {
+  margin: 0 8px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.datepickerGroup input {
+  transition: all 0.3s ease;
+  padding: 10px 18px;
+  margin: 8px auto;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+}
+
+.datepickerGroup input:focus {
+  border: 2px solid #569ff7;
 }
 
 .table-wrapper {

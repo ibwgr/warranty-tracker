@@ -9,8 +9,7 @@ const getDataForTheLast12Month = async (req, res) => {
             res.send(result);
         });
     } catch (e) {
-        console.log(e);
-        throw new Error(e.message);
+        res.status(500).json({"msg": "connection refused"});
     }
 }
 
@@ -23,23 +22,29 @@ const getDataForTheCurrentMonth = async (req, res) => {
             res.send(result);
         });
     } catch (e) {
-        res.status(500).json({"message": "connection to the database refused"});
+        res.status(500).json({"msg": "connection refused"});
     }
 }
 
 const getDataAccordingToDateSelection = async (req, res) => {
-    try {
-        const query = `SELECT * FROM warranty
-                       WHERE date_ BETWEEN ? AND ?`;
-        //Todo: How do I get dateFrom and dateTo from Front-End? --> /warranty/date-selection/?
-        const queryValues = '';
+    if (req.accepts('application/json')) {
+        const fromDate = req.query.from;
+        const toDate = req.query.to;
 
-        await database.getDataByQuery(query, function(result) {
-            res.send(result);
-        }, queryValues);
-    } catch (e) {
-        console.log(e);
-        throw new Error(e.message);
+        try {
+            const query = `SELECT * FROM warranty
+                       WHERE date_ BETWEEN ? AND ?`;
+            const queryValues = [fromDate, toDate];
+
+            await database.getDataByQuery(query, function(result) {
+                res.send(result);
+            }, queryValues);
+        } catch (e) {
+            console.log(e);
+            throw new Error(e.message);
+        }
+    } else {
+        res.sendStatus(406);
     }
 }
 

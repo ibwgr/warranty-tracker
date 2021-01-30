@@ -123,14 +123,14 @@ describe('controller', function () {
         });
 
         it('should call renderError() with correct message', async function() {
-            const errorMessage = "expected message";
-            this.data.getWarrantyEntriesOfCurrentMonth = sinon.stub().throws(new Error(errorMessage));
+            const errorMessage = {"msg":"expected message"};
+            this.data.getWarrantyEntriesOfCurrentMonth = sinon.stub().throws(errorMessage);
             this.view.renderError = sinon.spy();
 
             await this.controller.loadAndRender();
 
             expect(this.view.renderError.calledOnce).to.be.true;
-            expect(this.view.renderError.getCall(0).args[0] === errorMessage).to.be.true;
+            assert.strictEqual(this.view.renderError.getCall(0).args[0],errorMessage.msg);
         });
     })
 

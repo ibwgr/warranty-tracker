@@ -6,10 +6,48 @@ export default class Controller {
         this.view = view;
         this.data = data;
 
+        view.registerRefreshHandler((fromDate, toDate) => {
+            return this.getValuesByFromAndToDate(fromDate,toDate);
+        })
+
         this.postWarrantyEntry = this.postWarrantyEntry.bind(this);
         this.deleteWarrantyEntry = this.deleteWarrantyEntry.bind(this);
         eventHandler.addEventListener(event_create_entry, this.postWarrantyEntry);
         eventHandler.addEventListener(event_delete_entry, this.deleteWarrantyEntry);
+    }
+
+    async getValuesByFromAndToDate(fromDate, toDate) {
+        const isValidDateTime = this.validateDateAndTime(fromDate, toDate);
+        if (isValidDateTime) {
+            fromDate.setDate(fromDate.getDate() - 1);
+            toDate.setDate(toDate.getDate() + 1);
+            const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesByDateSelection(fromDate.toISOString(),toDate.toISOString());
+
+            if (warrantyEntriesCurrentMonth.length === 0 || warrantyEntriesCurrentMonth.length === undefined) {
+                return {
+                    message: "No entries found"
+                }
+            } else {
+                this.formatAndSort(warrantyEntriesCurrentMonth);
+                this.view.renderList(warrantyEntriesCurrentMonth);
+                return {
+                    message: ""
+                }
+            }
+        } else {
+            return {
+             message: "invalid date selection"
+            }
+        }
+    }
+
+    validateDateAndTime(fromDate, toDate){
+        if (    (fromDate === undefined)
+            ||  !(fromDate instanceof Date)){
+            return false;
+
+        } else return !((toDate === undefined)
+            || !(toDate instanceof Date));
     }
 
     async postWarrantyEntry(warrantyEntry) {
@@ -17,7 +55,11 @@ export default class Controller {
             await this.data.addWarrantyEntry(warrantyEntry.detail);
             await this.loadAndRender();
         } catch (e) {
-            console.log(e);
+            if ( e.msg ){
+                this.view.renderError(e.msg);
+            } else {
+                console.log(e);
+            }
         }
     }
 
@@ -26,7 +68,11 @@ export default class Controller {
             await this.data.deleteWarrantyEntry(warrantyEntryID.detail);
             await this.loadAndRender();
         } catch (e) {
-            console.log(e);
+            if ( e.msg ){
+                this.view.renderError(e.msg);
+            } else {
+                console.log(e);
+            }
         }
     }
 
@@ -41,12 +87,22 @@ export default class Controller {
             this.view.renderList(warrantyEntriesCurrentMonth);
 
         } catch (e) {
-            this.view.renderError(e.message);
+            if ( e.msg ){
+                this.view.renderError(e.msg);
+            } else {
+                console.log(e);
+            }
         }
     }
 
     getWorkingHoursPerMonths(entries) {
         const date = new Date();
+        /*
+        set day of the date to the middle of the month
+        - this ensures to have a valid day for every month
+        - date is only used to evaluate the names of the last twelve months
+         */
+        date.setDate(15);
         const workingHoursPerMonths = [];
         const lastTwelveMonths = [];
 
@@ -61,7 +117,6 @@ export default class Controller {
                     const decimalMinutes = parseInt(time[1]);
                     return totalWorkingHours+  ( hours + ( decimalMinutes/ 100));
                 }, 0));
-
             date.setMonth(date.getMonth() - 1);
         }
 
