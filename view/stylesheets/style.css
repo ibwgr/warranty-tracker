@@ -35,6 +35,7 @@ li a:hover {
   padding:0 16px;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr 50px 1fr;
   gap: 10px 0;
   grid-template-areas:
     "title"
