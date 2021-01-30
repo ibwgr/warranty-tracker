@@ -81,8 +81,7 @@ const addWarrantyEntry = async (req, res) => {
 const deleteWarrantyEntry = async (req, res) => {
     if (req.accepts('application/json')) {
         try {
-            const query = `DELETE
-                           FROM warranty
+            const query = `DELETE FROM warranty
                            WHERE id = ?`;
             const queryValue = req.body.id;
 
