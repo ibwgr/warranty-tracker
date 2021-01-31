@@ -114,8 +114,8 @@ export default class Controller {
                 .reduce((totalWorkingHours, entry) => {
                     const time = entry.time_.split(":");
                     const hours = parseInt(time[0]);
-                    const decimalMinutes = parseInt(time[1]);
-                    return totalWorkingHours+  ( hours + ( decimalMinutes/ 100));
+                    const minutes = parseInt(time[1]);
+                    return totalWorkingHours+  ( hours + (minutes / 60));
                 }, 0));
             date.setMonth(date.getMonth() - 1);
         }
