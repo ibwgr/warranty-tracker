@@ -209,28 +209,11 @@ th {
   height: 100%;
   width: 1.5rem;
   opacity: 0.4;
+  font-weight: bold;
 }
 
 #exit:hover {
   opacity: 1;
-}
-
-#exit:before, #exit:after {
-  position: absolute;
-  top: 2px;
-  left: 9px;
-  content: ' ';
-  height: 18px;
-  width: 2px;
-  background-color: black;
-}
-
-#exit:before {
-  transform: rotate(45deg);
-}
-
-#exit:after {
-  transform: rotate(-45deg);
 }
 
 #left-part {
@@ -274,6 +257,8 @@ select:invalid {
 
 .delete-entry {
   width: 100%;
-  background-color: #ff4d4d;
+  background-color: #ff6666;
   border: 1px solid black;
+  border-radius: 50%;
+  font-weight: bold;
 }

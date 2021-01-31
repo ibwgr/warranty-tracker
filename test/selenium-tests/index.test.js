@@ -123,7 +123,7 @@ describe('Index', () => {
             const timeEntry = await driver.findElement(page.timeEntrySelector()).getAttribute('value');
 
             assert.notEqual(dateEntry, '');
-            assert.equal(timeEntry, '0.75');
+            assert.equal(timeEntry, '0:45');
         })
 
         it('should alert if machine, employee, date or time is not entered', async () => {
@@ -159,7 +159,7 @@ describe('Index', () => {
             await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
             await driver.findElement(page.dateEntrySelector()).click();
             await driver.findElement(page.calendarDaySelector(10)).click();
-            await driver.findElement(page.timeOptionSelector(4)).click();
+            await driver.findElement(page.timeOptionSelector(5)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
 
             // wait for page to reload with added entry
@@ -220,7 +220,7 @@ describe('Index', () => {
             await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
             await driver.findElement(page.dateEntrySelector()).click();
             await driver.findElement(page.calendarDaySelector(10)).click();
-            await driver.findElement(page.timeOptionSelector(4)).click();
+            await driver.findElement(page.timeOptionSelector(5)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
 
             // wait for page to reload with added entry
