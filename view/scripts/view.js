@@ -15,8 +15,8 @@ export default class View {
 
     configureDatepicker(rootSelector) {
         let datePickerFrom = flatpickr(rootSelector + " #fromDate", {
-            enableTime: true,
-            time_24hr: true,
+            enableTime: false,
+            time_24hr: false,
             "maxDate": new Date().fp_incr(0),
             dateFormat: "d.m.Y",
             onClose: (selectedDates, dateStr, instance) => {
@@ -26,9 +26,9 @@ export default class View {
         });
 
         let datePickerTo = flatpickr(rootSelector + " #toDate", {
-            enableTime: true,
+            enableTime: false,
             "maxDate": new Date().fp_incr(0),
-            time_24hr: true,
+            time_24hr: false,
             dateFormat: "d.m.Y",
             onClose: (selectedDates, dateStr, instance) => {
                 datePickerFrom.set('maxDate', dateStr)
