@@ -9,6 +9,7 @@ export default class Data {
 
         return fetch(url.toString(), {
             headers: new Headers({
+                'Content-Type': 'application/json',
                 'Accept': 'application/json',
             })
         }).then(response => {
@@ -17,7 +18,7 @@ export default class Data {
             }else{
                 return response.json().then(json => Promise.reject(json));
             }
-        });
+        }).catch(error => console.log('Error message:', error));
     }
 
     getWarrantyEntriesOfCurrentMonth() {
@@ -25,15 +26,16 @@ export default class Data {
 
         return fetch(url.toString(), {
             headers: new Headers({
+                'Content-Type': 'application/json',
                 'Accept': 'application/json',
             })
         }).then(response => {
-            if ( response.ok) {
+            if (response.ok) {
                 return Promise.resolve(response.json());
             } else {
                 return response.json().then(json => Promise.reject(json));
             }
-        });
+        }).catch(error => console.log('Error message:', error));
     }
 
     getWarrantyEntriesByDateSelection(fromDate, toDate) {
@@ -48,12 +50,12 @@ export default class Data {
                 'Accept': 'application/json',
             }),
         }).then(response => {
-            if ( response.ok) {
+            if (response.ok) {
                 return Promise.resolve(response.json());
             } else {
                 return response.json().then(json => Promise.reject(json));
             }
-        });
+        }).catch(error => console.log('Error message:', error));
     }
 
     async addWarrantyEntry(warrantyEntry) {
@@ -63,6 +65,7 @@ export default class Data {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
             body: JSON.stringify(warrantyEntry)
         }).then(response => {
@@ -71,19 +74,26 @@ export default class Data {
             }else{
                 return response.json().then(json => Promise.reject(json));
             }
-        });
+        }).catch(error => console.log('Error message:', error));
     }
 
     async deleteWarrantyEntry(warrantyEntryID) {
         let url = new URL(this.serverUrl + "/warranty/delete-entry");
 
         return fetch(url.toString(),  {
-            method: 'POST',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
             body: JSON.stringify(warrantyEntryID)
-        });
+        }).then(response => {
+            if (response.ok){
+                return Promise.resolve(response.json());
+            }else{
+                return response.json().then(json => Promise.reject(json));
+            }
+        }).catch(error => console.log('Error message:', error));
     }
 
 }
