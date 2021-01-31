@@ -19,9 +19,13 @@ export default class Controller {
     async getValuesByFromAndToDate(fromDate, toDate) {
         const isValidDateTime = this.validateDateAndTime(fromDate, toDate);
         if (isValidDateTime) {
-            fromDate.setDate(fromDate.getDate() - 1);
-            toDate.setDate(toDate.getDate() + 1);
-            const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesByDateSelection(fromDate.toISOString(),toDate.toISOString());
+            let from = new Date(fromDate);
+            from.setHours(1);
+
+            let to = new Date(toDate);
+            to.setHours(24);
+
+            const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesByDateSelection(from.toISOString(),to.toISOString());
 
             if (warrantyEntriesCurrentMonth.length === 0 || warrantyEntriesCurrentMonth.length === undefined) {
                 return {
