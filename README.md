@@ -6,11 +6,15 @@ develop <br/>
 
 ## Installation
 ### MariaDB
-Set up mariaDB for local development and testing using Docker: 
+Set up mariaDB for local development and testing using Docker:
+
+The docker compose uses by default port 3333 for the mariaDB database. Ensure that this port is not occupied by another application prior to running this command.
+
 1. install docker on your host
-2. copy the dev.env file and save it as .env
-3. fire up your terminal and go to the root directory of the project
-4. run the following docker command: `docker-compose up`
+2. start docker
+3. copy the dev.env file and save it as .env
+4. fire up your terminal and go to the root directory of the project
+5. run the following docker command: `docker-compose up`
 
 ## Module
 xXx
