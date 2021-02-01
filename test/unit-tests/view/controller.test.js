@@ -135,8 +135,12 @@ describe('controller', function () {
     })
 
     describe('getWorkingHoursPerMonths()', function () {
+
+        const monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+
         it('should return most recent month', function() {
-            const expectedMonth = "Jan 2021";
+            const date = new Date();
+            const expectedMonth = monthNames[date.getMonth()] + " " + date.getFullYear();
 
             const workingHoursPerMonths = this.controller.getWorkingHoursPerMonths(fakeDataUnsorted);
             const mostRecentMonth = workingHoursPerMonths.months[11];
@@ -145,7 +149,9 @@ describe('controller', function () {
         });
 
         it('should return most passed month', function() {
-            const expectedMonth = "Feb 2020";
+            const date = new Date();
+            date.setMonth(date.getMonth() - 11);
+            const expectedMonth = monthNames[date.getMonth()] + " " + date.getFullYear();
 
             const workingHoursPerMonths = this.controller.getWorkingHoursPerMonths(fakeDataUnsorted);
             const mostPassedMonth = workingHoursPerMonths.months[0];

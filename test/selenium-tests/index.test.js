@@ -116,7 +116,7 @@ describe('Index', () => {
            await driver.wait(until.elementLocated(page.timeEntrySelector()));
 
             await driver.findElement(page.dateEntrySelector()).click();
-            await driver.findElement(page.calendarDaySelector(1)).click();
+            await driver.findElement(page.calendarDaySelector()).click();
             const dateEntry = await driver.findElement(page.dateEntrySelector()).getAttribute('value');
 
             await driver.findElement(page.timeOptionSelector(5)).click();
@@ -158,7 +158,7 @@ describe('Index', () => {
             await driver.findElement(page.machineEntrySelector()).sendKeys('machine');
             await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
             await driver.findElement(page.dateEntrySelector()).click();
-            await driver.findElement(page.calendarDaySelector(10)).click();
+            await driver.findElement(page.calendarDaySelector()).click();
             await driver.findElement(page.timeOptionSelector(5)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
 
@@ -219,7 +219,7 @@ describe('Index', () => {
             await driver.findElement(page.machineEntrySelector()).sendKeys('machine');
             await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
             await driver.findElement(page.dateEntrySelector()).click();
-            await driver.findElement(page.calendarDaySelector(10)).click();
+            await driver.findElement(page.calendarDaySelector()).click();
             await driver.findElement(page.timeOptionSelector(5)).click();
             await driver.findElement(page.buttonConfirmSelector()).click();
 
