@@ -67,8 +67,8 @@ export default class Index{
         return By.id('choose-date');
     }
 
-    calendarDaySelector(daySelector) {
-        return By.css(`.dayContainer > span:nth-child(${daySelector})`);
+    calendarDaySelector() {
+        return By.css(`.today`);
     }
 
     timeEntrySelector() {
