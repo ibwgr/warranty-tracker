@@ -1,15 +1,15 @@
-require('chromedriver')
-import webdriver from 'selenium-webdriver'
-import chrome from 'selenium-webdriver/chrome.js'
-import chai from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-import config from './config.js'
+require('chromedriver');
+import webdriver from 'selenium-webdriver';
+import chrome from 'selenium-webdriver/chrome.js';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import config from './config.js';
 
-chai.use(chaiAsPromised)
-const {assert} = chai
+chai.use(chaiAsPromised);
+const {assert} = chai;
 
 const setupDriver = function () {
-    webdriver.promise.USE_PROMISE_MANAGER = false
+    webdriver.promise.USE_PROMISE_MANAGER = false;
 
     const options = new chrome.Options().addArguments(
         'disable-gpu',
@@ -18,16 +18,16 @@ const setupDriver = function () {
         'window-size=1420,800',
         'disable-extensions',
         'disable-dev-shm-usage'
-    )
+    );
 
     if (process.env.CI) {
-        options.addArguments('headless')
+        options.addArguments('headless');
     }
 
     return new webdriver.Builder()
         .setChromeOptions(options)
         .forBrowser('chrome')
-        .build()
+        .build();
 }
 
 export default function init(){
@@ -35,5 +35,5 @@ export default function init(){
         assert,
         config,
         driver: setupDriver()
-    }
+    };
 }

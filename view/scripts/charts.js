@@ -1,12 +1,12 @@
 export default class Charts {
 
-    createTrend(){
+    createTrend() {
         const defaultMonths = ["", "", "", "", "", "", "", "", "", "", "", ""];
         const defaultData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         createTrend(defaultMonths, defaultData);
     }
 
-    updateTrend(categories, data){
+    updateTrend(categories, data) {
         updateTrend(categories, data);
     }
 }
@@ -41,6 +41,7 @@ const createTrend = (categories, data) => {
             height: 300
         }
     });
+
 }
 
 const updateTrend = (categories, data) => {

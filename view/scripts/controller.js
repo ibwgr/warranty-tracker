@@ -1,4 +1,4 @@
-import { eventHandler, event_create_entry, event_delete_entry } from './event.js'
+import { eventHandler, event_create_entry, event_delete_entry } from './event.js';
 
 export default class Controller {
 
@@ -25,31 +25,30 @@ export default class Controller {
             let to = new Date(toDate);
             to.setHours(24);
 
-            const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesByDateSelection(from.toISOString(),to.toISOString());
+            const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesByDateSelection(from.toISOString(), to.toISOString());
 
             if (warrantyEntriesCurrentMonth.length === 0 || warrantyEntriesCurrentMonth.length === undefined) {
                 return {
                     message: "No entries found"
-                }
+                };
             } else {
                 this.formatAndSort(warrantyEntriesCurrentMonth);
                 this.view.renderList(warrantyEntriesCurrentMonth);
                 return {
                     message: ""
-                }
+                };
             }
         } else {
             return {
              message: "invalid date selection"
-            }
+            };
         }
     }
 
-    validateDateAndTime(fromDate, toDate){
-        if (    (fromDate === undefined)
-            ||  !(fromDate instanceof Date)){
+    validateDateAndTime(fromDate, toDate) {
+        if ((fromDate === undefined)
+            || !(fromDate instanceof Date)) {
             return false;
-
         } else return !((toDate === undefined)
             || !(toDate instanceof Date));
     }
@@ -59,7 +58,7 @@ export default class Controller {
             await this.data.addWarrantyEntry(warrantyEntry.detail);
             await this.loadAndRender();
         } catch (e) {
-            if ( e.msg ){
+            if (e.msg){
                 this.view.renderError(e.msg);
             } else {
                 console.log(e);
@@ -73,7 +72,7 @@ export default class Controller {
             await this.loadAndRenderGraph();
             this.view.removeEntry(warrantyEntryID.detail.id);
         } catch (e) {
-            if ( e.msg ){
+            if (e.msg){
                 this.view.renderError(e.msg);
             } else {
                 console.log(e);
@@ -83,14 +82,15 @@ export default class Controller {
 
     async loadAndRender() {
         try {
-            await this.loadAndRenderGraph();
+            const warrantyEntriesRecentYear = await this.data.getWarrantyEntriesOfLastTwelveMonths();
+            let workingHoursPerMonths = this.getWorkingHoursPerMonths(warrantyEntriesRecentYear);
+            this.view.updateTrend(workingHoursPerMonths.months, workingHoursPerMonths.workingHours);
 
             const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesOfCurrentMonth();
             this.formatAndSort(warrantyEntriesCurrentMonth);
             this.view.renderList(warrantyEntriesCurrentMonth);
-
         } catch (e) {
-            if ( e.msg ){
+            if (e.msg){
                 this.view.renderError(e.msg);
             } else {
                 console.log(e);
@@ -115,7 +115,7 @@ export default class Controller {
         const workingHoursPerMonths = [];
         const lastTwelveMonths = [];
 
-        for (let i = 0; i < 12; i++){
+        for (let i = 0; i < 12; i++) {
             lastTwelveMonths.push(this.getMonthNameAndYear(date));
 
             workingHoursPerMonths.push(entries
@@ -147,13 +147,13 @@ export default class Controller {
                 entry.date_ = this.formatDate(entry.date_);
                 entry.time_ = this.formatTime(entry.time_);
                 return entry;
-            });
+            })
     }
 
     sortByDate() {
         const date = "date_";
 
-        return function (a,b){
+        return function (a,b) {
             return new Date(b[date]) - new Date(a[date]);
         }
     }
@@ -163,6 +163,7 @@ export default class Controller {
     }
 
     formatTime(time) {
-        return (time.split(":")[0].replace(/^(?!00[^0])0/, '') + "h " + time.split(":")[1] + "min" );
+        return (time.split(":")[0].replace(/^(?!00[^0])0/, '') + "h " + time.split(":")[1] + "min");
     }
+
 }

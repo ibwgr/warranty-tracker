@@ -35,9 +35,10 @@ class EventHandler {
         if (typeof callback === 'function') {
           callback(params);
         }
-      });
+      })
     }
   }
+
 }
 
 export const eventHandler = new EventHandler();
