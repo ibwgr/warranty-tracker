@@ -157,3 +157,7 @@ GitHub.sublime-settings
 
 # environment variables
 /.env
+
+# distribution folder
+/dist/
+/.cache/
