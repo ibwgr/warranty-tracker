@@ -37,17 +37,8 @@ const createTrend = (categories, data) => {
             },
             symbolRadius: 0
         },
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 480
-                },
-                chartOptions: {
-                    legend: {
-                        enabled: false
-                    }
-                }
-            }]
+        chart: {
+            height: 300
         }
     });
 }

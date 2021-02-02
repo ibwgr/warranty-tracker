@@ -138,7 +138,11 @@ export default class Controller {
     formatAndSort(warrantyEntries) {
         warrantyEntries
             .sort(this.sortByDate())
-            .forEach(entry => entry.date_ = this.formatDate(entry.date_));
+            .forEach(entry =>{
+                entry.date_ = this.formatDate(entry.date_);
+                entry.time_ = this.formatTime(entry.time_);
+                return entry;
+            });
     }
 
     sortByDate() {
@@ -151,5 +155,9 @@ export default class Controller {
 
     formatDate(date) {
         return new Date(date).toLocaleDateString().split(",")[0];
+    }
+
+    formatTime(time) {
+        return (time.split(":")[0].replace(/^(?!00[^0])0/, '') + "h " + time.split(":")[1] + "min" );
     }
 }
