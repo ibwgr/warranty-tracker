@@ -35,8 +35,8 @@ li a:hover {
   padding:0 16px;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 50px 1fr 50px 1fr;
-  gap: 10px 0;
+  grid-template-rows: 60px 1fr 70px 1.5fr;
+  grid-gap: 10px;
   grid-template-areas:
     "title"
     "graph"
@@ -256,9 +256,11 @@ select:invalid {
 }
 
 .delete-entry {
-  width: 100%;
-  background-color: #ff6666;
-  border: 1px solid black;
-  border-radius: 50%;
-  font-weight: bold;
+  background-color: white;
+  fill: #d1646e;
+  border: 0;
+}
+
+.delete-entry:hover {
+  fill: #f20f23;
 }
