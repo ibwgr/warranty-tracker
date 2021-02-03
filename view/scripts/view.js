@@ -28,8 +28,8 @@ export default class View {
 
         let datePickerTo = flatpickr(rootSelector + " #toDate", {
             enableTime: false,
-            "maxDate": new Date().fp_incr(0),
             time_24hr: false,
+            "maxDate": new Date().fp_incr(0),
             dateFormat: "d.m.Y",
             onClose: (selectedDates, dateStr, instance) => {
                 datePickerFrom.set('maxDate', dateStr);

@@ -19,7 +19,7 @@ export default class Popup {
         flatpickr( '#choose-date', {
             enableTime: false,
             time_24hr: false,
-            altFormat: false,
+            "maxDate": new Date().fp_incr(0),
             dateFormat: "d.m.Y",
             onClose: (selectedDates) => {
                 this.date = selectedDates[0];
