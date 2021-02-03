@@ -76,6 +76,7 @@ export default class View {
 
         entry.innerHTML = date + customer + contact + machine + issue + employee + spendTime + deleteEntry;
         entry.className = "table-entry";
+        entry.id = "table-entry-" + warrantyEntry.id;
         return entry;
     }
 
@@ -123,6 +124,11 @@ export default class View {
 
     renderError(errorMessage) {
         window.alert(errorMessage);
+    }
+
+    removeEntry(id){
+        const entry = document.querySelector('#table-entry-' + id);
+        this.table.removeChild(entry);
     }
 
 }
