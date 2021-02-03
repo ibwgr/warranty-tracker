@@ -140,9 +140,28 @@ describe('Index', () => {
         })
 
         it('entry data should be taken over to table after confirmation', async () => {
-            await driver.wait(until.elementLocated(page.warrantyTableEntrySelector()));
+            // it's needed to add an entry in case of an empty table
+            await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
+            await driver.findElement(page.buttonCreateEntrySelector()).click();
+
+            await driver.wait(until.elementLocated(page.machineEntrySelector()));
+            await driver.wait(until.elementLocated(page.employeeEntrySelector()));
+            await driver.wait(until.elementLocated(page.dateEntrySelector()));
+            await driver.wait(until.elementLocated(page.timeEntrySelector()));
+            await driver.wait(until.elementLocated(page.buttonConfirmSelector()));
+
+            await driver.findElement(page.machineEntrySelector()).sendKeys('machine');
+            await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
+            await driver.findElement(page.dateEntrySelector()).click();
+            await driver.findElement(page.calendarDaySelector()).click();
+            await driver.findElement(page.timeOptionSelector(5)).click();
+            await driver.findElement(page.buttonConfirmSelector()).click();
+
+            // wait for page to reload with added entry
+            await sleep(500);
 
             let amountOfWarrantyEntriesBeforeEntry = 0;
+            await driver.wait(until.elementLocated(page.warrantyTableEntrySelector()));
             await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesBeforeEntry = elements.length);
 
             await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
@@ -208,6 +227,7 @@ describe('Index', () => {
     describe('table of current month entries', () => {
 
         it('should delete entry', async () => {
+            // it's needed to add an entry in case of an empty table
             await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
             await driver.findElement(page.buttonCreateEntrySelector()).click();
 
