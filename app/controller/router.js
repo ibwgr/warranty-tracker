@@ -4,7 +4,7 @@ const controller = require('./controller');
 const path = require('path');
 
 router.get('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname, "../../view", "index.html"));
+  res.sendFile(path.join(__dirname, "../../dist", "index.html"));
 });
 
 router.get('/warranty/last-12-month', controller.getDataForTheLast12Month);

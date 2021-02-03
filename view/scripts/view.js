@@ -1,4 +1,5 @@
-import { eventHandler, event_delete_entry } from './event.js'
+import { eventHandler, event_delete_entry } from './event.js';
+import he from 'he';
 
 export default class View {
 
@@ -95,11 +96,11 @@ export default class View {
     }
 
     renderTitle(title) {
-        return `<th>${title}</th>`;
+        return `<th>${he.encode(title)}</th>`;
     }
 
     renderEntry(entry) {
-        return `<td>${entry}</td>`;
+        return `<td>${he.encode(entry)}</td>`;
     }
 
     renderDeleteButton(id){

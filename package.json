@@ -2,23 +2,39 @@
   "name": "warranty-tracker",
   "version": "0.0.0",
   "private": true,
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "regenerator": true
+        }
+      ]
+    ]
+  },
   "scripts": {
-    "start": "node app/app.js",
+    "start": "npm run build & node app/app.js",
+    "build": "parcel build view/index.html --no-source-maps",
     "test": "npm run test:unit & npm run test:e2e",
     "test:unit": "npm run test:unit:app & npm run test:unit:view",
     "test:unit:app": "nyc ./node_modules/.bin/mocha test/unit-tests/app/*.test.js --exit",
     "test:unit:view": "nyc ./node_modules/.bin/mocha test/unit-tests/view/*.test.js",
     "test:e2e": "./node_modules/.bin/mocha test/selenium-tests/*.test.js --timeout 8000",
-    "dev": "./node_modules/.bin/nodemon app/app.js"
+    "dev": "nodemon --watch ./app --watch ./view/scripts --exec npm run start"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
-    "mariadb": "^2.5.2",
-    "flatpickr": "^4.6.3"
+    "flatpickr": "^4.6.3",
+    "he": "^1.2.0",
+    "mariadb": "^2.5.2"
   },
   "devDependencies": {
-    "@babel/core": "7.7.5",
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.6",
     "@babel/register": "7.7.4",
@@ -29,6 +45,8 @@
     "mocha": "^8.2.1",
     "nodemon": "^2.0.4",
     "nyc": "^15.1.0",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-nuke-dist": "^1.0.1",
     "selenium-webdriver": "^4.0.0-alpha.8",
     "sinon": "^9.2.2"
   }

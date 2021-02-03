@@ -30,6 +30,8 @@ The docker compose uses by default port 3333 for the mariaDB database. Ensure th
 - express - Node.js web-framework
 - mariadb - MariaDB and MySQL client for Node.js
 - flatpickr - Used as date picker
+- parcel - Used as bundler for client application
+- he - Used as HTML encoder
 
 ## Usage
 1. Build & serve web application: `npm run start`
