@@ -45,17 +45,17 @@ async function getDataByQuery(query, callback, queryValues) {
 }
 
 async function changeDataByQuery(query, queryValues) {
-    let conn;
+    let connection;
     try {
-        conn = await pool.getConnection();
-        await conn.query(query, queryValues);
+        connection = await pool.getConnection();
+        await connection.query(query, queryValues);
 
     } catch (err) {
         throw err;
 
     } finally {
-        if (conn) {
-            await conn.end();
+        if (connection) {
+            await connection.end();
         }
     }
 }
