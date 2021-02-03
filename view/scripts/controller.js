@@ -70,7 +70,8 @@ export default class Controller {
     async deleteWarrantyEntry(warrantyEntryID) {
         try {
             await this.data.deleteWarrantyEntry(warrantyEntryID.detail);
-            await this.loadAndRender();
+            await this.loadAndRenderGraph();
+            this.view.removeEntry(warrantyEntryID.detail.id);
         } catch (e) {
             if ( e.msg ){
                 this.view.renderError(e.msg);
@@ -82,12 +83,10 @@ export default class Controller {
 
     async loadAndRender() {
         try {
-            const warrantyEntriesRecentYear = await this.data.getWarrantyEntriesOfLastTwelveMonths();
-            let workingHoursPerMonths = this.getWorkingHoursPerMonths(warrantyEntriesRecentYear);
-            this.view.updateTrend(workingHoursPerMonths.months, workingHoursPerMonths.workingHours)
+            await this.loadAndRenderGraph();
 
             const warrantyEntriesCurrentMonth = await this.data.getWarrantyEntriesOfCurrentMonth();
-            this.formatAndSort(warrantyEntriesCurrentMonth)
+            this.formatAndSort(warrantyEntriesCurrentMonth);
             this.view.renderList(warrantyEntriesCurrentMonth);
 
         } catch (e) {
@@ -97,6 +96,12 @@ export default class Controller {
                 console.log(e);
             }
         }
+    }
+
+    async loadAndRenderGraph() {
+        const warrantyEntriesRecentYear = await this.data.getWarrantyEntriesOfLastTwelveMonths();
+        let workingHoursPerMonths = this.getWorkingHoursPerMonths(warrantyEntriesRecentYear);
+        this.view.updateTrend(workingHoursPerMonths.months, workingHoursPerMonths.workingHours);
     }
 
     getWorkingHoursPerMonths(entries) {

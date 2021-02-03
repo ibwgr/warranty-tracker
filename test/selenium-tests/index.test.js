@@ -166,8 +166,11 @@ describe('Index', () => {
             await sleep(500);
 
             let amountOfWarrantyEntriesAfterEntry = 0;
-
             await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesAfterEntry = elements.length);
+
+            // delete created test entry again
+            await driver.findElement(page.warrantyTableDeleteButtonSelector()).click();
+
             assert.equal(amountOfWarrantyEntriesAfterEntry, amountOfWarrantyEntriesBeforeEntry + 1);
         })
     })
