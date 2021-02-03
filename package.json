@@ -30,8 +30,7 @@
     "express": "^4.16.4",
     "flatpickr": "^4.6.3",
     "he": "^1.2.0",
-    "mariadb": "^2.5.2",
-    "nodeJS": "^1.0.0"
+    "mariadb": "^2.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
