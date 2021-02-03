@@ -1,37 +1,38 @@
-import webdriver from 'selenium-webdriver'
-const {By} = webdriver
+import webdriver from 'selenium-webdriver';
+const {By} = webdriver;
 
-export default class Index{
-    constructor(driver, url){
+export default class Index {
+
+    constructor(driver, url) {
         this.driver = driver;
         this.url = url;
     }
 
-    gotoIndex(){
+    gotoIndex() {
         return this.driver.navigate().to(this.url);
     }
 
-    getCurrentUrl(){
+    getCurrentUrl() {
         return this.driver.getCurrentUrl();
     }
 
-    getPageTitle(){
+    getPageTitle() {
         return this.driver.getTitle();
     }
 
-    contentTitleSelector(){
+    contentTitleSelector() {
         return By.css('.title');
     }
 
-    navigateToIndexPage(){
+    navigateToIndexPage() {
         return this.driver.findElement(this.navigateToIndexPageSelector());
     }
 
-    navigateToIndexPageSelector(){
+    navigateToIndexPageSelector() {
         return By.id('linkToIndexPage');
     }
 
-    buttonCreateEntrySelector(){
+    buttonCreateEntrySelector() {
         return By.css('#create-entry');
     }
 
@@ -106,4 +107,5 @@ export default class Index{
     warrantyTableDeleteButtonSelector() {
         return By.css('.delete-entry');
     }
+
 }

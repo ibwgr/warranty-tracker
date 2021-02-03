@@ -1,21 +1,20 @@
-import {until,Key} from 'selenium-webdriver'
-import {describe, it, beforeEach, after} from 'mocha'
+import {until,Key} from 'selenium-webdriver';
+import {describe, it, beforeEach, after} from 'mocha';
 
+import init from './selenium.helper';
+const {driver, config, assert} = init();
 
-import init from './selenium.helper'
-const {driver, config, assert} = init()
-
-import Index from './index.po'
-const page = new Index(driver, config.target)
+import Index from './index.po';
+const page = new Index(driver, config.target);
 
 describe('Index', () => {
 
     beforeEach(async () => {
-        await page.gotoIndex()
+        await page.gotoIndex();
     })
 
     after(async () => {
-        await driver.quit()
+        await driver.quit();
     })
 
     describe('page title', () => {
@@ -33,8 +32,8 @@ describe('Index', () => {
             await driver.wait(until.elementLocated(page.navigateToIndexPageSelector()));
             await page.navigateToIndexPage().sendKeys(Key.ENTER);
 
-            const url = await page.getCurrentUrl()
-            const current = url.split('/').pop()
+            const url = await page.getCurrentUrl();
+            const current = url.split('/').pop();
 
             await assert.equal(current, '');
         })
@@ -42,7 +41,7 @@ describe('Index', () => {
         it('link to index page should be active class', async () => {
             await driver.wait(until.elementLocated(page.navigateToIndexPageSelector()));
 
-            const actualClass = await driver.findElement(page.navigateToIndexPageSelector()).getAttribute('class')
+            const actualClass = await driver.findElement(page.navigateToIndexPageSelector()).getAttribute('class');
 
             await assert.equal(actualClass, 'active');
         })
@@ -61,7 +60,7 @@ describe('Index', () => {
 
             await assert.equal(popupDisplay, 'grid');
             await assert.equal(planeDisplay, 'block');
-        });
+        })
 
         it('should exit popup and plane', async () => {
             await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
@@ -137,13 +136,32 @@ describe('Index', () => {
             const alertMessage = await driver.switchTo().alert().getText();
             await driver.switchTo().alert().accept();
 
-            assert.equal(alertMessage, 'At least machine, employee, date and time inputs must be made')
+            assert.equal(alertMessage, 'At least machine, employee, date and time inputs must be made');
         })
 
         it('entry data should be taken over to table after confirmation', async () => {
-            await driver.wait(until.elementLocated(page.warrantyTableEntrySelector()));
+            // it's needed to add an entry in case of an empty table
+            await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
+            await driver.findElement(page.buttonCreateEntrySelector()).click();
+
+            await driver.wait(until.elementLocated(page.machineEntrySelector()));
+            await driver.wait(until.elementLocated(page.employeeEntrySelector()));
+            await driver.wait(until.elementLocated(page.dateEntrySelector()));
+            await driver.wait(until.elementLocated(page.timeEntrySelector()));
+            await driver.wait(until.elementLocated(page.buttonConfirmSelector()));
+
+            await driver.findElement(page.machineEntrySelector()).sendKeys('machine');
+            await driver.findElement(page.employeeEntrySelector()).sendKeys('employee');
+            await driver.findElement(page.dateEntrySelector()).click();
+            await driver.findElement(page.calendarDaySelector()).click();
+            await driver.findElement(page.timeOptionSelector(5)).click();
+            await driver.findElement(page.buttonConfirmSelector()).click();
+
+            // wait for page to reload with added entry
+            await sleep(500);
 
             let amountOfWarrantyEntriesBeforeEntry = 0;
+            await driver.wait(until.elementLocated(page.warrantyTableEntrySelector()));
             await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesBeforeEntry = elements.length);
 
             await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
@@ -181,7 +199,6 @@ describe('Index', () => {
             "July", "August", "September", "October", "November", "December"
         ];
 
-
         it('should open datepicker for from date entry with current month', async () => {
             await driver.wait(until.elementLocated(page.fromDateEntrySelector()));
 
@@ -210,6 +227,7 @@ describe('Index', () => {
     describe('table of current month entries', () => {
 
         it('should delete entry', async () => {
+            // it's needed to add an entry in case of an empty table
             await driver.wait(until.elementLocated(page.buttonCreateEntrySelector()));
             await driver.findElement(page.buttonCreateEntrySelector()).click();
 
@@ -242,7 +260,7 @@ describe('Index', () => {
             await driver.findElements(page.warrantyTableEntrySelector()).then(elements => amountOfWarrantyEntriesAfterDeletion = elements.length);
 
             await assert.equal(amountOfWarrantyEntriesAfterDeletion, ( amountOfWarrantyEntriesBeforeDeletion - 1));
-        });
+        })
     })
 })
 
@@ -251,6 +269,6 @@ const sleep = timeout => {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve();
-        }, timeout);
-    });
-};
+        }, timeout)
+    })
+}

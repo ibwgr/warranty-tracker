@@ -1,6 +1,6 @@
 const mariadb = require('mariadb');
 let config = {};
-if (process.env.CI === "true"){
+if (process.env.CI === "true") {
     config = {
         user: "root",
         port: 3306,
@@ -20,13 +20,14 @@ if (process.env.CI === "true"){
 const pool = mariadb.createPool(config);
 
 async function getDataByQuery(query, callback, queryValues) {
-    let conn;
+    let connection;
     try {
         if (queryValues === undefined) {
             queryValues = '';
         }
-        conn = await pool.getConnection();
-        const data = await conn.query(query, queryValues);
+        connection = await pool.getConnection();
+        const data = await connection.query(query, queryValues);
+
         if (data.length === 0 || data.length === undefined) {
             return callback(data);
         }
@@ -37,8 +38,8 @@ async function getDataByQuery(query, callback, queryValues) {
         throw err;
 
     } finally {
-        if (conn) {
-            await conn.end();
+        if (connection) {
+            await connection.end();
         }
     }
 }
@@ -59,8 +60,8 @@ async function changeDataByQuery(query, queryValues) {
     }
 }
 
-function addOneHourToUTCTimezone(warrantyEntry){
-    if ( warrantyEntry.date_ !== undefined ) {
+function addOneHourToUTCTimezone(warrantyEntry) {
+    if (warrantyEntry.date_ !== undefined) {
         warrantyEntry.date_.setHours(warrantyEntry.date_.getHours() + 1);
     }
 }

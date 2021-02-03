@@ -21,10 +21,10 @@ export default class View {
             "maxDate": new Date().fp_incr(0),
             dateFormat: "d.m.Y",
             onClose: (selectedDates, dateStr, instance) => {
-                datePickerTo.set('minDate', dateStr)
-                this.dateFrom = selectedDates[0]
+                datePickerTo.set('minDate', dateStr);
+                this.dateFrom = selectedDates[0];
             }
-        });
+        })
 
         let datePickerTo = flatpickr(rootSelector + " #toDate", {
             enableTime: false,
@@ -32,10 +32,10 @@ export default class View {
             time_24hr: false,
             dateFormat: "d.m.Y",
             onClose: (selectedDates, dateStr, instance) => {
-                datePickerFrom.set('maxDate', dateStr)
-                this.dateTo = selectedDates[0]
+                datePickerFrom.set('maxDate', dateStr);
+                this.dateTo = selectedDates[0];
             }
-        });
+        })
     }
 
     addRefreshEventListener(button) {
@@ -118,8 +118,8 @@ export default class View {
         document.querySelectorAll('.delete-entry').forEach(button => {
             button.addEventListener('click', () => {
                 eventHandler.fireEvent(event_delete_entry, { id: button.id });
-            });
-        });
+            })
+        })
     }
 
     renderError(errorMessage) {

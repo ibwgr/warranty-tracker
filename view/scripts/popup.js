@@ -1,4 +1,4 @@
-import { eventHandler, event_create_entry } from './event.js'
+import { eventHandler, event_create_entry } from './event.js';
 
 export default class Popup {
 
@@ -13,7 +13,7 @@ export default class Popup {
         this.contact = document.querySelector('#contact');
         this.issue = document.querySelector('#issue');
         this.employee = document.querySelector('#employee');
-        this.time = document.querySelector('#time-spend')
+        this.time = document.querySelector('#time-spend');
         this.date = '';
 
         flatpickr( '#choose-date', {
@@ -24,15 +24,15 @@ export default class Popup {
             onClose: (selectedDates) => {
                 this.date = selectedDates[0];
             }
-        });
+        })
 
         this.createEntryButton.addEventListener('click', () => {
             this.displayPopupAndPlane();
-        });
+        })
 
         this.exitButton.addEventListener('click', () => {
             this.displayPopupAndPlane();
-        });
+        })
 
         this.confirmButton.addEventListener('click', () => {
             const insufficientEntry = this.validateEntryData();
@@ -66,7 +66,7 @@ export default class Popup {
     }
 
     getWarrantyEntry() {
-        this.addOneHourToUTCTimezone()
+        this.addOneHourToUTCTimezone();
         return {
             date_: this.date.toISOString().split("T")[0],
             machine: this.machine.value,

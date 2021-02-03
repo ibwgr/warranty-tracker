@@ -5,7 +5,7 @@ export default class Data {
     }
 
     getWarrantyEntriesOfLastTwelveMonths() {
-        let url = new URL(this.serverUrl + "/warranty/last-12-month")
+        let url = new URL(this.serverUrl + "/warranty/last-12-month");
 
         return fetch(url.toString(), {
             headers: new Headers({
@@ -15,7 +15,7 @@ export default class Data {
         }).then(response => {
             if (response.ok) {
                 return Promise.resolve(response.json());
-            }else{
+            } else {
                 return response.json().then(json => Promise.reject(json));
             }
         }).catch(error => console.log('Error message:', error));
@@ -69,9 +69,9 @@ export default class Data {
             },
             body: JSON.stringify(warrantyEntry)
         }).then(response => {
-            if (response.ok){
+            if (response.ok) {
                 return Promise.resolve(response.json());
-            }else{
+            } else {
                 return response.json().then(json => Promise.reject(json));
             }
         }).catch(error => console.log('Error message:', error));
@@ -90,7 +90,7 @@ export default class Data {
         }).then(response => {
             if (response.ok){
                 return Promise.resolve(response.json());
-            }else{
+            } else {
                 return response.json().then(json => Promise.reject(json));
             }
         }).catch(error => console.log('Error message:', error));

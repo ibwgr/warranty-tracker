@@ -1,16 +1,13 @@
-const assert = require('assert')
-const chai = require('chai'), spies = require('chai-spies')
+const assert = require('assert');
+const chai = require('chai'), spies = require('chai-spies');
 const expect = chai.expect;
 const sinon = require("sinon");
 
 chai.use(spies);
 
-import Controller from '../../../view/scripts/controller'
-import Data from '../../../view/scripts/data.remote'
-import View from '../../../view/scripts/view'
-
-
-
+import Controller from '../../../view/scripts/controller';
+import Data from '../../../view/scripts/data.remote';
+import View from '../../../view/scripts/view';
 
 describe('controller', function () {
 
@@ -56,17 +53,17 @@ describe('controller', function () {
         }
     ];
 
-    beforeEach(function(){
+    beforeEach(function() {
         this.view = sinon.createStubInstance(View);
         this.data = sinon.createStubInstance(Data);
         this.data.getWarrantyEntriesOfLastTwelveMonths = sinon.stub().returns(fakeDataSorted);
         this.data.getWarrantyEntriesOfCurrentMonth = sinon.stub().returns(fakeDataSorted);
         this.controller = new Controller(this.view, this.data);
-    });
+    })
 
     afterEach(() => {
         sinon.restore();
-    });
+    })
 
     describe('loadAndRender()', function () {
 
@@ -75,14 +72,14 @@ describe('controller', function () {
             await this.controller.loadAndRender();
 
             expect(this.data.getWarrantyEntriesOfCurrentMonth.calledOnce).to.be.true;
-        });
+        })
 
-        it('should call getWarrantyEntriesOfLastTvelweMonths() once', async function () {
+        it('should call getWarrantyEntriesOfLastTwelveMonths() once', async function () {
 
             await this.controller.loadAndRender();
 
             expect(this.data.getWarrantyEntriesOfLastTwelveMonths.calledOnce).to.be.true;
-        });
+        })
 
         it('should call renderList() once', async function() {
             this.view.renderList = sinon.spy();
@@ -90,7 +87,7 @@ describe('controller', function () {
             await this.controller.loadAndRender();
 
             expect(this.view.renderList.calledOnce).to.be.true;
-        });
+        })
 
         it('should call renderList() twice', async function() {
             this.view.renderList = sinon.spy();
@@ -99,7 +96,7 @@ describe('controller', function () {
             await this.controller.loadAndRender();
 
             expect(this.view.renderList.calledTwice).to.be.true;
-        });
+        })
 
 
         it('should call renderList() with correct data', async function() {
@@ -109,7 +106,7 @@ describe('controller', function () {
 
             expect(this.view.renderList.calledOnce).to.be.true;
             expect(this.view.renderList.getCall(0).args[0] === fakeDataSorted).to.be.true;
-        });
+        })
 
         it('should call renderList() with correct sorted data', async function() {
             this.data.getWarrantyEntriesOfCurrentMonth = sinon.stub().returns(fakeDataUnsorted);
@@ -119,8 +116,8 @@ describe('controller', function () {
             const expectedDate = fakeDataSorted[0].date_;
 
             expect(this.view.renderList.calledOnce).to.be.true;
-            assert.strictEqual((this.view.renderList.getCall(0).args[0][0].date_),expectedDate )
-        });
+            assert.strictEqual((this.view.renderList.getCall(0).args[0][0].date_), expectedDate);
+        })
 
         it('should call renderError() with correct message', async function() {
             const errorMessage = {"msg":"expected message"};
@@ -131,7 +128,7 @@ describe('controller', function () {
 
             expect(this.view.renderError.calledOnce).to.be.true;
             assert.strictEqual(this.view.renderError.getCall(0).args[0],errorMessage.msg);
-        });
+        })
     })
 
     describe('getWorkingHoursPerMonths()', function () {
@@ -146,7 +143,7 @@ describe('controller', function () {
             const mostRecentMonth = workingHoursPerMonths.months[11];
 
             assert.strictEqual(mostRecentMonth,expectedMonth);
-        });
+        })
 
         it('should return most passed month', function() {
             const date = new Date();
@@ -157,17 +154,18 @@ describe('controller', function () {
             const mostPassedMonth = workingHoursPerMonths.months[0];
 
             assert.strictEqual(mostPassedMonth,expectedMonth);
-        });
+        })
     })
 
     describe('getMonthNameAndYear()', function () {
+
         it('should return correct acronym of month', function() {
-            const expectedAcronym = "Jan"
+            const expectedAcronym = "Jan";
 
             const monthNameAndYear = this.controller.getMonthNameAndYear(new Date('2021-01-01'));
 
             assert.strictEqual(monthNameAndYear.split(" ")[0],expectedAcronym);
-        });
+        })
     })
 
 })
