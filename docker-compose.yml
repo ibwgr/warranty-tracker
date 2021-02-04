@@ -1,0 +1,13 @@
+version: "3.3"
+
+services:
+  db:
+    image: mariadb:10.5
+    # Variables values have to be set from outside, e.g. via .env file
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - 3333:3306
