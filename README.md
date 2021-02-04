@@ -19,9 +19,7 @@ The docker compose uses by default port 3333 for the mariaDB database. Ensure th
 
 #### Set up MariaDB for production:
 1. install mariaDB
-2. create database with the given SQL file
-   
-   path: warranty-tracker/database/warrantyDB.sql
+2. create database with the given SQL file - path: warranty-tracker/database/warrantyDB.sql
 
 
 ### Node.js
@@ -55,3 +53,5 @@ The docker compose uses by default port 3333 for the mariaDB database. Ensure th
 ## IDE
 IntelliJ
 
+## Web browser
+Chrome
