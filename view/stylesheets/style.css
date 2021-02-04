@@ -234,6 +234,7 @@ th {
 
 select {
   height: 19.2px;
+  box-shadow: none;
 }
 
 select:invalid {
