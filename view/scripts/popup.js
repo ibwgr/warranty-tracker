@@ -16,7 +16,7 @@ export default class Popup {
         this.time = document.querySelector('#time-spend');
         this.date = '';
 
-        flatpickr( '#choose-date', {
+        this.flatpicker = flatpickr('#choose-date', {
             enableTime: false,
             time_24hr: false,
             "maxDate": new Date().fp_incr(0),
@@ -41,6 +41,7 @@ export default class Popup {
                 return;
             }
             eventHandler.fireEvent(event_create_entry, this.getWarrantyEntry());
+            this.removeAllEntries();
             this.displayPopupAndPlane();
         })
 
@@ -76,6 +77,16 @@ export default class Popup {
             employee: this.employee.value,
             time_: this.time.value
         };
+    }
+
+    removeAllEntries() {
+        this.machine.value = "";
+        this.customer.value = "";
+        this.contact.value = "";
+        this.issue.value = "";
+        this.employee.value = "";
+        this.time.value = "";
+        this.flatpicker.clear();
     }
 
     validateEntryData() {
