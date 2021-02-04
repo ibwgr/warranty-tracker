@@ -79,10 +79,13 @@ export default class Popup {
     }
 
     validateEntryData() {
-        return ([this.machine.value, this.employee.value, this.date.value, this.time.value].includes(''));
+        if (this.date === undefined) {
+            return true;
+        }
+        return ([this.machine.value, this.employee.value, this.date, this.time.value].includes(''));
     }
 
-    addOneHourToUTCTimezone(){
+    addOneHourToUTCTimezone() {
          this.date.setHours(this.date.getHours() + 1);
     }
 

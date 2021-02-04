@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "npm run build & node app/app.js",
-    "build": "parcel build view/index.html --no-source-maps",
+    "build": "parcel build view/index.html",
     "test": "npm run test:unit & npm run test:e2e",
     "test:unit": "npm run test:unit:app & npm run test:unit:view",
     "test:unit:app": "nyc ./node_modules/.bin/mocha test/unit-tests/app/*.test.js --exit",
