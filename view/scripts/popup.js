@@ -64,6 +64,7 @@ export default class Popup {
                 }
             }
         }
+        this.time.remove(1);
     }
 
     getWarrantyEntry() {

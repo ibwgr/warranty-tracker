@@ -118,7 +118,7 @@ describe('Index', () => {
             await driver.findElement(page.calendarDaySelector()).click();
             const dateEntry = await driver.findElement(page.dateEntrySelector()).getAttribute('value');
 
-            await driver.findElement(page.timeOptionSelector(5)).click();
+            await driver.findElement(page.timeOptionSelector(4)).click();
             const timeEntry = await driver.findElement(page.timeEntrySelector()).getAttribute('value');
 
             assert.notEqual(dateEntry, '');
