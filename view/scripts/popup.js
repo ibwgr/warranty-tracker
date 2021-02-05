@@ -71,11 +71,11 @@ export default class Popup {
         this.addOneHourToUTCTimezone();
         return {
             date_: this.date.toISOString().split("T")[0],
-            machine: this.machine.value,
-            customer: this.customer.value,
-            contact: this.contact.value,
-            issue: this.issue.value,
-            employee: this.employee.value,
+            machine: this.machine.value.substr(0,30),
+            customer: this.customer.value.substr(0,30),
+            contact: this.contact.value.substr(0,30),
+            issue: this.issue.value.substr(0,50),
+            employee: this.employee.value.substr(0,30),
             time_: this.time.value
         };
     }
